@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#is_overworld",
+  "features": "continuumuniverses:varkest_ore_deposit",
+  "step": "underground_ores"
+}

@@ -1,0 +1,55 @@
+{
+  "variants": {
+    "": {
+      "model": "continuumuniverses:block/kormikest",
+      "level=0": {
+        "model": "continuumuniverses:block/kormikest_still"
+      },
+      "level=1": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=2": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=3": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=4": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=5": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=6": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=7": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=8": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=9": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=10": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=11": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=12": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=13": {
+         "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=14": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      },
+      "level=15": {
+        "model": "continuumuniverses:block/kormikest_flowing"
+      }
+    }
+  }
+}

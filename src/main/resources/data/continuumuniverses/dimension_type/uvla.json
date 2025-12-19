@@ -1,0 +1,26 @@
+{
+  "ultrawarm": false,
+  "piglin_safe": false,
+  "respawn_anchor_works": true,
+  "bed_works": true,
+  "has_raids": false,
+  "has_ceiling": false,
+  "coordinate_scale": 1,
+  "ambient_light": 0.25,
+  "infiniburn": "#continuumuniverses:infiniburn_overworld",
+  "min_y": -64,
+  "height": 384,
+  "logical_height": 384,
+  "cloud_height": 192,
+  "monster_spawn_light_level": 0,
+  "monster_spawn_block_light_limit": 0,
+  "effects": "continuumuniverses:uvla",
+  "has_skylight": true,
+  "natural": true,
+  "attributes": {
+    "minecraft:visual/sky_color": 4283412106,
+    "minecraft:visual/fog_color": 4281233246,
+    "minecraft:visual/water_fog_color": 4280184435,
+    "minecraft:visual/star_brightness": 0.65
+  }
+}

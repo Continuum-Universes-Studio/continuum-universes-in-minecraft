@@ -1,0 +1,10 @@
+{
+  "continuumuniverses.uvla.ambient.jungle": {
+    "sounds": [
+      {
+        "name": "continuumuniverses:enchanted_forest_loop",
+        "stream": false
+      }
+    ]
+  }
+}

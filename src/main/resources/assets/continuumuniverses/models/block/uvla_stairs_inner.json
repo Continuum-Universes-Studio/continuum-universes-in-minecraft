@@ -1,0 +1,10 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "particle": "continuumuniverses:block/uvla_planks",
+    "bottom": "continuumuniverses:block/uvla_planks",
+    "top": "continuumuniverses:block/uvla_planks",
+    "side": "continuumuniverses:block/uvla_planks"
+  },
+  "render_type": "solid"
+}

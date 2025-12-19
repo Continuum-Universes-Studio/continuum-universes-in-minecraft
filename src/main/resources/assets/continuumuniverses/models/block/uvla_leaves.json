@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "continuumuniverses:block/uvla_leaves",
+    "particle": "continuumuniverses:block/uvla_leaves"
+  }
+}

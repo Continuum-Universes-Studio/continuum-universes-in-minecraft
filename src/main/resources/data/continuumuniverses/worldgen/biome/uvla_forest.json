@@ -1,0 +1,47 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.5,
+  "downfall": 0.5,
+  "effects": {
+    "foliage_color": -16763905,
+    "grass_color": -16776961,
+    "sky_color": -10027162,
+    "fog_color": -10027162,
+    "water_color": -13369600,
+    "water_fog_color": -16738048
+  },
+  "spawners": {
+    "monster": [],
+    "creature": [],
+    "ambient": [],
+    "axolotls": [],
+    "underground_water_creature": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": [
+      "minecraft:cave"
+  ],
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "continuumuniverses:uvla_forest_tree",
+      "minecraft:patch_grass_forest",
+      "minecraft:trees_jungle",
+      "minecraft:patch_grass_jungle"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ]
+}

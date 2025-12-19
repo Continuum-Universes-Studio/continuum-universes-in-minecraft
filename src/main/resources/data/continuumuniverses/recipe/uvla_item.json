@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "X": {
+      "item": "continuumuniverses:lethurkest_gem"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "continuumuniverses:uvla_item",
+    "count": 1
+  }
+}

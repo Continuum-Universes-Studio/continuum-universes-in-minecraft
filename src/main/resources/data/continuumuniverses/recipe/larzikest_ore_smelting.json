@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "experience": 0.7,
+  "cookingtime": 12000,
+  "ingredient": [
+    {
+      "item": "continuumuniverses:larzikest_ore_item"
+    }
+  ],
+  "result": {
+    "id": "continuumuniverses:larzikest_ingot",
+    "count": 1
+  }
+}

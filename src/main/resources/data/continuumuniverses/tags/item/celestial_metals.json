@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "continuumuniverses:larzikest_ingot",
+    "continuumuniverses:varkest_ingot",
+    "continuumuniverses:raw_larzikest",
+    "continuumuniverses:raw_varkest",
+    "continuumuniverses:starsteel_ingot",
+    "continuumuniverses:raw_starsteel"
+  ]
+}

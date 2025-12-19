@@ -1,0 +1,9 @@
+{
+  "parent": "block/door_top_right",
+  "textures": {
+    "particle": "continuumuniverses:block/uvla_door_bottom",
+    "bottom": "continuumuniverses:block/uvla_door_bottom",
+    "top": "continuumuniverses:block/uvla_door_top"
+  },
+  "render_type": "cutout"
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "continuumuniverses:block/stripped_uvla_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "continuumuniverses:block/stripped_uvla_log"
+    },
+    "axis=z": {
+      "model": "continuumuniverses:block/stripped_uvla_log",
+      "x": 90
+    }
+  }
+}

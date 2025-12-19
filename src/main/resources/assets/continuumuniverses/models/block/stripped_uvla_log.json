@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "continuumuniverses:block/stripped_uvla_log_top",
+    "up": "continuumuniverses:block/stripped_uvla_log_top",
+    "north": "continuumuniverses:block/stripped_uvla_log",
+    "east": "continuumuniverses:block/stripped_uvla_log",
+    "south": "continuumuniverses:block/stripped_uvla_log",
+    "west": "continuumuniverses:block/stripped_uvla_log",
+    "particle": "continuumuniverses:block/stripped_uvla_log_top"
+  },
+  "render_type": "solid"
+}

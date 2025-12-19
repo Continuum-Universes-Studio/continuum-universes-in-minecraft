@@ -1,0 +1,8 @@
+{
+  "parent": "block/fence_side",
+  "textures": {
+    "texture": "continuumuniverses:block/uvla_planks",
+    "particle": "continuumuniverses:block/uvla_planks"
+  },
+  "render_type": "solid"
+}

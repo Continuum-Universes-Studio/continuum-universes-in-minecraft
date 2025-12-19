@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "experience": 3,
+  "cookingtime": 15000,
+  "ingredient": [
+    {
+      "item": "continuumuniverses:varkest_ore_item"
+    }
+  ],
+  "result": {
+    "id": "continuumuniverses:varkest_ingot",
+    "count": 1
+  }
+}

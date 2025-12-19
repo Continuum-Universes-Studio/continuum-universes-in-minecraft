@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "continuumuniverses:stripped_uvla_log",
+    "continuumuniverses:uvla_log",
+    "continuumuniverses:stripped_uvla_wood",
+    "continuumuniverses:uvla_wood"
+  ]
+}

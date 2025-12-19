@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "continuumuniverses:block/uvla_slab"
+    },
+    "type=top": {
+      "model": "continuumuniverses:block/uvla_slab_top"
+    },
+    "type=double": {
+      "model": "continuumuniverses:block/uvla_slab_full"
+    }
+  }
+}

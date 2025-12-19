@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "continuumuniverses:block/uvla_pressure_plate"
+    },
+    "powered=true": {
+      "model": "continuumuniverses:block/uvla_pressure_plate_down"
+    }
+  }
+}
