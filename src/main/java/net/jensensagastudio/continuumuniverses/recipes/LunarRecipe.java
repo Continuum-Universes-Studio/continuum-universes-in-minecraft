@@ -7,8 +7,7 @@ import net.minecraft.world.entity.player.Input;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
-        import net.minecraft.world.level.Level;
-import org.jspecify.annotations.Nullable;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 

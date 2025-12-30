@@ -5,13 +5,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class StellarForgeScreen extends AbstractContainerScreen<StellarForgeMenu> {
 
-    private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(
+    private static final ResourceLocation TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(
                     ContinuumUniverses.MODID,
                     "textures/gui/stellar_forge.png"
             );

@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.BlockUtil;
+import net.minecraft.BlockUtil;
 
 import javax.annotation.Nullable;
 

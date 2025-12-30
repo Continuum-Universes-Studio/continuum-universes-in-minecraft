@@ -1,17 +1,52 @@
 package net.jensensagastudio.continuumuniverses.world.dimensions.uvla;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.datafix.DataFixTypes;
-import net.minecraft.world.level.saveddata.SavedData;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
 
 public class UvlaLunarSavedData extends SavedData {
 
-    public static final String FILE_NAME = "uvla_lunar";
+    // This string becomes the path/name under the dimension's data folder.
+    // (NeoForge docs: identifier maps into ./<world>/<dimension>/data/<identifier>.dat)
+    public static final String ID = "uvla_lunar";
+
+    // Robust enum codec: unknown strings -> NONE instead of crashing
+    private static final Codec<KairaLunarEvent> KAIRA_EVENT_CODEC =
+            Codec.STRING.xmap(
+                    s -> {
+                        try { return KairaLunarEvent.valueOf(s); }
+                        catch (Exception ignored) { return KairaLunarEvent.NONE; }
+                    },
+                    KairaLunarEvent::name
+            );
+
+    public static final Codec<UvlaLunarSavedData> CODEC =
+            RecordCodecBuilder.create(instance -> instance.group(
+                    KAIRA_EVENT_CODEC.fieldOf("KairaEvent")
+                            .orElse(KairaLunarEvent.NONE)
+                            .forGetter(sd -> sd.kairaEvent),
+                    Codec.LONG.fieldOf("LastRolledDay")
+                            .orElse(-1L)
+                            .forGetter(sd -> sd.lastRolledDay)
+            ).apply(instance, UvlaLunarSavedData::new));
+
+    // NeoForge docs note: DataFixTypes parameter exists but can be null in their patched vanilla use cases.
+    public static final SavedDataType<UvlaLunarSavedData> TYPE =
+            new SavedDataType<>(ID, UvlaLunarSavedData::new, CODEC /*, null */);
 
     private KairaLunarEvent kairaEvent = KairaLunarEvent.NONE;
-    private long lastRolledDay = -1L; // prevent double-rolls in same day
+    private long lastRolledDay = -1L;
+
+    // Default constructor (used when no data exists yet)
+    public UvlaLunarSavedData() {}
+
+    // “data constructor” (used by the codec)
+    public UvlaLunarSavedData(KairaLunarEvent event, long lastRolledDay) {
+        this.kairaEvent = event;
+        this.lastRolledDay = lastRolledDay;
+    }
 
     public KairaLunarEvent getKairaEvent() {
         return kairaEvent;
@@ -19,7 +54,7 @@ public class UvlaLunarSavedData extends SavedData {
 
     public void setKairaEvent(KairaLunarEvent event) {
         this.kairaEvent = event;
-        setDirty();
+        this.setDirty();
     }
 
     public long getLastRolledDay() {
@@ -28,39 +63,11 @@ public class UvlaLunarSavedData extends SavedData {
 
     public void setLastRolledDay(long day) {
         this.lastRolledDay = day;
-        setDirty();
+        this.setDirty();
     }
 
     public static UvlaLunarSavedData get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(factory(), FILE_NAME);
-    }
-
-    private static SavedData.Factory<UvlaLunarSavedData> factory() {
-        return new SavedData.Factory<>(
-                UvlaLunarSavedData::new,
-                UvlaLunarSavedData::load,
-                DataFixTypes.LEVEL
-        );
-    }
-
-    public static UvlaLunarSavedData load(CompoundTag tag, HolderLookup.Provider registries) {
-        UvlaLunarSavedData data = new UvlaLunarSavedData();
-
-        String raw = tag.getString("KairaEvent");
-        try {
-            data.kairaEvent = KairaLunarEvent.valueOf(raw);
-        } catch (Exception ignored) {
-            data.kairaEvent = KairaLunarEvent.NONE;
-        }
-
-        data.lastRolledDay = tag.getLong("LastRolledDay");
-        return data;
-    }
-
-    @Override
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.putString("KairaEvent", kairaEvent.name());
-        tag.putLong("LastRolledDay", lastRolledDay);
-        return tag;
+        // 1.21.10 style: computeIfAbsent takes the SavedDataType
+        return level.getDataStorage().computeIfAbsent(TYPE);
     }
 }

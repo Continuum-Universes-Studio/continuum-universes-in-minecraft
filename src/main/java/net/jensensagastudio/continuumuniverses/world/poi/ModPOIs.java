@@ -3,14 +3,13 @@ package net.jensensagastudio.continuumuniverses.world.poi;
 import net.jensensagastudio.continuumuniverses.ContinuumUniverses;
 import net.jensensagastudio.continuumuniverses.block.ModBlocks;
 
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.minecraft.resources.Identifier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import java.util.Set;
 
@@ -25,7 +24,7 @@ public final class ModPOIs {
     public static void registerPOIs(RegisterEvent event) {
         event.register(Registries.POINT_OF_INTEREST_TYPE, helper -> {
             helper.register(
-                    Identifier.tryParse("continuumuniverses:uvla_portal"),
+                    ResourceLocation.tryParse("continuumuniverses:uvla_portal"),
                     new PoiType(
                             Set.of(ModBlocks.UVLA_PORTAL.value().defaultBlockState()),
                             0,

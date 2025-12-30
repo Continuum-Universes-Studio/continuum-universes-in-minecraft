@@ -3,10 +3,10 @@
   "values": [
     "continuumuniverses:larzikest_ingot",
     "continuumuniverses:varkest_ingot",
-    "continuumuniverses:larzikest_ore_item",
-    "continuumuniverses:varkest_ore_item",
+    "continuumuniverses:raw_larzikest",
+    "continuumuniverses:raw_varkest",
     "continuumuniverses:starsteel_ingot",
-    "continuumuniverses:starsteel_ore_item",
+    "continuumuniverses:raw_starsteel",
     "continuumuniverses:lethurkest_gem",
     "continuumuniverses:kormikest_gelatin",
     "continuumuniverses:kormikest_dust"

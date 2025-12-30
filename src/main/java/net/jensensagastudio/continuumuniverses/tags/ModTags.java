@@ -2,7 +2,7 @@ package net.jensensagastudio.continuumuniverses.tags;
 
 import net.jensensagastudio.continuumuniverses.ContinuumUniverses;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +25,7 @@ public class ModTags {
         private static TagKey<Item> tag(String name) {
             return TagKey.create(
                     Registries.ITEM,
-                    Identifier.fromNamespaceAndPath(
+                    ResourceLocation.fromNamespaceAndPath(
                             ContinuumUniverses.MODID,
                             name
                     )
@@ -44,7 +44,7 @@ public class ModTags {
         private static TagKey<Block> tag(String name) {
             return TagKey.create(
                     Registries.BLOCK,
-                    Identifier.fromNamespaceAndPath(
+                    ResourceLocation.fromNamespaceAndPath(
                             ContinuumUniverses.MODID,
                             name
                     )

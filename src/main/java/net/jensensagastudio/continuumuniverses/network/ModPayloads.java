@@ -1,14 +1,16 @@
 package net.jensensagastudio.continuumuniverses.network;
 
+import net.jensensagastudio.continuumuniverses.ContinuumUniverses;
 import net.jensensagastudio.continuumuniverses.network.payload.UvlaKairaEventPayload;
+import net.jensensagastudio.continuumuniverses.world.dimensions.uvla.UvlaSkyRenderer;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.network.event.RegisterClientPayloadHandlersEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.event.RegisterClientPayloadHandlersEvent;
 
-@EventBusSubscriber(modid = "continuumuniverses", bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ContinuumUniverses.MODID)
 public final class ModPayloads {
-
     private ModPayloads() {}
 
     public static final String NETWORK_VERSION = "1";
@@ -17,22 +19,26 @@ public final class ModPayloads {
     public static void registerPayloads(RegisterPayloadHandlersEvent event) {
         var registrar = event.registrar(NETWORK_VERSION);
 
-        // Register the payload for play phase. Handler is registered separately client-side.
-        registrar.play(
+        // ✅ This payload is allowed to be sent from server -> client
+        registrar.playToClient(
                 UvlaKairaEventPayload.TYPE,
                 UvlaKairaEventPayload.STREAM_CODEC
         );
     }
 
-    @SubscribeEvent
-    public static void registerClientHandlers(RegisterClientPayloadHandlersEvent event) {
-        event.register(
-                UvlaKairaEventPayload.TYPE,
-                (payload, context) -> {
-                    context.enqueueWork(() ->
-                            net.jensensagastudio.continuumuniverses.client.ClientLunarState.setKairaEvent(payload.event())
-                    );
-                }
-        );
+    @EventBusSubscriber(modid = ContinuumUniverses.MODID, value = Dist.CLIENT)
+    public static final class ClientHandlers {
+        private ClientHandlers() {}
+
+        @SubscribeEvent
+        public static void registerClientHandlers(RegisterClientPayloadHandlersEvent event) {
+            event.register(
+                    UvlaKairaEventPayload.TYPE,
+                    (payload, context) -> context.enqueueWork(() ->
+                            net.jensensagastudio.continuumuniverses.world.dimensions.uvla.UvlaSkyRenderer
+                                    .setClientKairaEvent(payload.event())
+                    )
+            );
+        }
     }
 }

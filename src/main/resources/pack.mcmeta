@@ -1,6 +1,15 @@
 {
   "pack": {
-    "pack_format": 81,
-    "description": ""
+    "description": "continuumuniverses",
+    "pack_format": 1,
+    "supported_formats": 81,
+    "min_format": 81,
+    "max_format": 88
+  },
+  "features": {
+    "enabled": [
+      "minecraft:minecart_improvements",
+      "minecraft:vanilla"
+    ]
   }
 }

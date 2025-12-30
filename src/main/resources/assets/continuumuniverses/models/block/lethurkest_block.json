@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "continuumuniverses:block/lethurkest_ore_block",
+    "all": "continuumuniverses:block/lethurkest_block",
     "particle": "continuumuniverses:block/lethurkest_ore_block"
   },
   "render_type": "solid"

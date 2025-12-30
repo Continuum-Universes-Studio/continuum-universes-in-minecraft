@@ -42,7 +42,7 @@ public class ContinuumUniverses {
 		ModFluids.HELPER.ITEMS.register(modEventBus);
 
 		ModMenuTypes.MENU_TYPES.register(modEventBus);
-		ModDimensionTypes.DIMENSION_TYPE.register(modEventBus);
+		//ModDimensionTypes.DIMENSION_TYPE.register(modEventBus);
 		ModCreativeTabs.TABS.register(modEventBus);
 
 		modEventBus.addListener(this::commonSetup);
