@@ -9,7 +9,7 @@ public final class UvlaMoons {
             "kaira",
             16,
             0.0F,
-            40.0F,
+            15.0F,
             0.3F,
             14.0F,
             0.0F // distance (unused right now)
@@ -19,7 +19,7 @@ public final class UvlaMoons {
             "nenja",
             16,
             120.0F,
-            28.0F,
+            22.0F,
             0.5F,
             28.0F,
             0.0F

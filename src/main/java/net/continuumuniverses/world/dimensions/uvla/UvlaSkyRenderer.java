@@ -56,6 +56,7 @@ public class UvlaSkyRenderer extends SkyRenderer {
 
     // Visual tuning
     private static final float MOON_SCALE = 30.0F;
+    private static final float MOON_HEIGHT = 100.0F;
 
     public UvlaSkyRenderer(TextureManager textureManager) {
         super();
@@ -103,6 +104,7 @@ public class UvlaSkyRenderer extends SkyRenderer {
             // Sky-style orientation
             modelView.rotate(Axis.YP.rotationDegrees(-90.0F));
             modelView.rotate(Axis.XP.rotationDegrees(angleDeg));
+            modelView.translate(0.0F, MOON_HEIGHT, 0.0F);
             modelView.scale(MOON_SCALE, MOON_SCALE, MOON_SCALE);
 
             GpuBufferSlice transforms =
