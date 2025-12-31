@@ -14,7 +14,7 @@ public final class UvlaDimensionSpecialEffects extends DimensionSpecialEffects {
     private final UvlaSkyRenderer skyRenderer;
 
     public UvlaDimensionSpecialEffects() {
-        super(SkyType.OVERWORLD, false, false); // use custom renderer, skip vanilla sky
+        super(SkyType.NONE, false, false); // use custom renderer, skip vanilla sky
         this.skyRenderer = new UvlaSkyRenderer(Minecraft.getInstance().getTextureManager());
     }
 
