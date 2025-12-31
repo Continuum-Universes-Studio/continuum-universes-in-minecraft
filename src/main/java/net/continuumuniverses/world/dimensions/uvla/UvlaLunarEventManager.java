@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 public final class UvlaLunarEventManager {
 
     // Adjust these to taste
-    private static final int BLOOD_CHANCE_PERCENT = 5;
+    private static final int BLOOD_CHANCE_PERCENT = 10;
     private static final int BLUE_CHANCE_PERCENT  = 5;
 
     // Sunset moment to roll (vanilla-ish night transition)
@@ -74,9 +74,9 @@ public final class UvlaLunarEventManager {
     private static boolean isKairaFull(ServerLevel level) {
         // Simple baseline: full when phase == 0 (or pick your own)
         // Your moon phase logic can replace this easily.
-        long day = level.getDayTime() / 24000L;
-        int phaseCount = 8; // match your sprite sheet
-        int phase = (int) (day % phaseCount);
+        float days = level.getDayTime() / 24000.0F;
+        float cycle = (days / UvlaMoons.KAIRA.orbitalPeriodDays()) % 1.0F;
+        int phase = (int) (cycle * UvlaMoons.KAIRA.phaseCount());
         return phase == 0;
     }
 
