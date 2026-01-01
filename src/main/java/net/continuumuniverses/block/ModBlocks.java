@@ -133,19 +133,31 @@ public class ModBlocks {
             registerBlock(
                     "uvla_willow_sapling",
                     props -> new SaplingBlock(UvlaTreeGrowers.UVLA_WILLOW, props),
-                    BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)
+                    BlockBehaviour.Properties.of()
+                            .noCollission()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
             );
     public static final DeferredHolder<Block, SaplingBlock> UVLA_MANGROVE_SAPLING =
             registerBlock(
                     "uvla_mangrove_sapling",
                     props -> new SaplingBlock(UvlaTreeGrowers.UVLA_MANGROVE, props),
-                    BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)
+                    BlockBehaviour.Properties.of()
+                            .noCollission()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
             );
     public static final DeferredHolder<Block, SaplingBlock> UVLA_GIANT_SAPLING =
             registerBlock(
                     "uvla_giant_sapling",
                     props -> new SaplingBlock(UvlaTreeGrowers.UVLA_GIANT, props),
-                    BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)
+                    BlockBehaviour.Properties.of()
+                            .noCollission()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
             );
     public static final DeferredBlock<StairBlock> UVLA_STAIRS = registerBlock("bismuth_stairs",
             (properties) -> new StairBlock(ModBlocks.UVLA_PLANKS.get().defaultBlockState(),
