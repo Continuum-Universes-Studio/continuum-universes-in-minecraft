@@ -27,8 +27,10 @@ public class ContinuumUniverses {
 
 		// REMOVE ONE OF THESE — keep only one
 		NeoForge.EVENT_BUS.register(this);
+		NeoForge.EVENT_BUS.register(net.continuumuniverses.block.ModBlockDrops.class);
 
 		ModRecipes.SERIALIZERS.register(modEventBus);
+		ModRecipes.TYPES.register(modEventBus);
 		ModBlocks.BLOCKS.register(modEventBus);
 		ModItems.ITEMS.register(modEventBus);
 		ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);

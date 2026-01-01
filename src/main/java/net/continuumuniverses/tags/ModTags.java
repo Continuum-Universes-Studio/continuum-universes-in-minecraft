@@ -40,6 +40,8 @@ public class ModTags {
                 tag("incorrect_for_varkest_tools");
         public static final TagKey<Block> INCORRECT_FOR_STARSTEEL_TOOLS =
                 tag("incorrect_for_starsteel_tools");
+        public static final TagKey<Block> SELF_DROPS =
+                tag("self_drops");
 
         private static TagKey<Block> tag(String name) {
             return TagKey.create(
