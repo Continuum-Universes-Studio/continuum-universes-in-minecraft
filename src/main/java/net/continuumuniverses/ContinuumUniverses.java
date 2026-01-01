@@ -49,6 +49,7 @@ public class ContinuumUniverses {
 	private void commonSetup(FMLCommonSetupEvent event) {
 		// Some common setup code
 		LOGGER.info("HELLO FROM COMMON SETUP");
+		event.enqueueWork(ModPOIs::registerPortalPoiStates);
 
 
 	}
