@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "continuumuniverses:larzikest_ore_block"
+          "name": "continuumuniverses:raw_larzikest"
         }
       ],
       "conditions": [
