@@ -87,7 +87,7 @@ public final class UvlaDimensionEffects extends DimensionSpecialEffects implemen
                                      WeatherRenderState weatherRenderState,
                                      MultiBufferSource bufferSource,
                                      Vec3 camPos) {
-        return true;
+        return false;
     }
 
     /**
@@ -97,7 +97,7 @@ public final class UvlaDimensionEffects extends DimensionSpecialEffects implemen
     public boolean tickRain(net.minecraft.client.multiplayer.ClientLevel level,
                             int ticks,
                             net.minecraft.client.Camera camera) {
-        return true;
+        return false;
     }
 
     /**
