@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "continuumuniverses:starsteel_ore_block"
+          "name": "continuumuniverses:raw_starsteel"
         }
       ],
       "conditions": [

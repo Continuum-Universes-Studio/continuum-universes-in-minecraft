@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "continuumuniverses:varkest_ore_block"
+          "name": "continuumuniverses:raw_varkest"
         }
       ],
       "conditions": [
