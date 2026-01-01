@@ -136,7 +136,7 @@ public class ModBlocks {
                     "uvla_willow_sapling",
                     props -> new SaplingBlock(UvlaTreeGrowers.UVLA_WILLOW, props),
                     BlockBehaviour.Properties.of()
-                            .noCollission()
+                            .noCollision()
                             .randomTicks()
                             .instabreak()
                             .sound(SoundType.GRASS)
@@ -146,7 +146,7 @@ public class ModBlocks {
                     "uvla_mangrove_sapling",
                     props -> new SaplingBlock(UvlaTreeGrowers.UVLA_MANGROVE, props),
                     BlockBehaviour.Properties.of()
-                            .noCollission()
+                            .noCollision()
                             .randomTicks()
                             .instabreak()
                             .sound(SoundType.GRASS)
@@ -156,7 +156,7 @@ public class ModBlocks {
                     "uvla_giant_sapling",
                     props -> new SaplingBlock(UvlaTreeGrowers.UVLA_GIANT, props),
                     BlockBehaviour.Properties.of()
-                            .noCollission()
+                            .noCollision()
                             .randomTicks()
                             .instabreak()
                             .sound(SoundType.GRASS)
