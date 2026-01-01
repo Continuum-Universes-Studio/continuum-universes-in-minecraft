@@ -1,7 +1,7 @@
 package net.continuumuniverses.client;
 
 import net.continuumuniverses.ContinuumUniverses;
-import net.continuumuniverses.world.dimensions.uvla.UvlaDimensionSpecialEffects;
+import net.continuumuniverses.world.dimensions.uvla.UvlaDimensionEffects;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -17,7 +17,7 @@ public final class ClientDimensionEffects {
     public static void registerEffects(RegisterDimensionSpecialEffectsEvent event) {
         event.register(
                 ResourceLocation.fromNamespaceAndPath(ContinuumUniverses.MODID, "uvla"),
-                new UvlaDimensionSpecialEffects()
+                new UvlaDimensionEffects()
         );
     }
 }

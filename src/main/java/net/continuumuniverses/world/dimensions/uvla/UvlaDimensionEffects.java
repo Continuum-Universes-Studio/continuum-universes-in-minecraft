@@ -1,25 +1,24 @@
 package net.continuumuniverses.world.dimensions.uvla;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.state.SkyRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.SkyRenderState;
 import net.minecraft.client.renderer.state.WeatherRenderState;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.resources.model.AtlasManager;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.IDimensionSpecialEffectsExtension;
-import net.neoforged.neoforge.client.event.ExtractLevelRenderStateEvent;
 import org.joml.Matrix4f;
 
 /**
  * Custom DimensionSpecialEffects for the Uvla dimension.
- * Disables vanilla sky/cloud/rain rendering and delegates sky rendering to UvlaSkyRenderer.
+ * - Blocks vanilla sky/cloud/rain rendering
+ * - Delegates celestial rendering to {@link UvlaSkyRenderer}
  */
-public class UvlaDimensionEffects extends DimensionSpecialEffects implements IDimensionSpecialEffectsExtension {
+public final class UvlaDimensionEffects extends DimensionSpecialEffects implements IDimensionSpecialEffectsExtension {
 
     private final UvlaSkyRenderer skyRenderer;
 
@@ -29,23 +28,25 @@ public class UvlaDimensionEffects extends DimensionSpecialEffects implements IDi
                 /* constantAmbientLight */ false,
                 /* alternateSkyColor */ false
         );
-        // Create our custom sky renderer using the client’s texture and atlas managers
-        Minecraft minecraft = Minecraft.getInstance();
-        TextureManager textureManager = minecraft.getTextureManager();
-        AtlasManager atlasManager = minecraft.getAtlasManager();
+
+        Minecraft mc = Minecraft.getInstance();
+        TextureManager textureManager = mc.getTextureManager();
         this.skyRenderer = new UvlaSkyRenderer(textureManager);
     }
 
     @Override
     public Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float sunHeight) {
-        return fogColor; // keep vanilla fog colour
+        return fogColor;
     }
 
     @Override
     public boolean isFoggyAt(int x, int z) {
-        return false; // Uvla has no dense fog
+        return false;
     }
 
+    /**
+     * Return true to say “handled” and block vanilla clouds.
+     */
     @Override
     public boolean renderClouds(LevelRenderState levelRenderState,
                                 Vec3 camPos,
@@ -53,25 +54,60 @@ public class UvlaDimensionEffects extends DimensionSpecialEffects implements IDi
                                 int cloudColor,
                                 float cloudHeight,
                                 Matrix4f modelViewMatrix) {
-        return true; // prevent vanilla cloud rendering
+        return true;
     }
 
+    /**
+     * Main hook: render custom sky and return true to block vanilla sun/moon/stars.
+     */
     @Override
-    public boolean renderSky(LevelRenderState levelRenderState, SkyRenderState skyRenderState, Matrix4f modelViewMatrix, Runnable setupFog) {
-        return this.skyRenderer.renderSky(levelRenderState, skyRenderState, modelViewMatrix, setupFog);
+    public boolean renderSky(LevelRenderState levelRenderState,
+                             SkyRenderState skyRenderState,
+                             Matrix4f modelViewMatrix,
+                             Runnable setupFog) {
+
+        // Defensive: if we're somehow called without a level, just block vanilla sky.
+        ClientLevel level = Minecraft.getInstance().level;
+        if (level == null) {
+            setupFog.run();
+            return true;
+        }
+
+        // UvlaSkyRenderer already does rotation-only + pushes RenderSystem model-view stack.
+        skyRenderer.render(level, modelViewMatrix, setupFog);
+
+        return true; // blocks vanilla sun/moon/stars
     }
 
-
+    /**
+     * Return true to say “handled” and block vanilla precipitation rendering.
+     */
     @Override
     public boolean renderSnowAndRain(LevelRenderState levelRenderState,
                                      WeatherRenderState weatherRenderState,
                                      MultiBufferSource bufferSource,
                                      Vec3 camPos) {
-        return true; // disable vanilla precipitation
+        return true;
     }
 
+    /**
+     * Return true to say “handled” and block vanilla rain tick logic.
+     */
     @Override
-    public boolean tickRain(net.minecraft.client.multiplayer.ClientLevel level, int ticks, net.minecraft.client.Camera camera) {
-        return true; // disable vanilla rain tick logic
+    public boolean tickRain(net.minecraft.client.multiplayer.ClientLevel level,
+                            int ticks,
+                            net.minecraft.client.Camera camera) {
+        return true;
+    }
+
+    /**
+     * Optional manual cleanup hook (DimensionSpecialEffects has no lifecycle callback).
+     * Call this from your client shutdown/reload handler if you want to free GPU buffers.
+     */
+    public void closeRenderer() {
+        try {
+            skyRenderer.close();
+        } catch (Exception ignored) {
+        }
     }
 }

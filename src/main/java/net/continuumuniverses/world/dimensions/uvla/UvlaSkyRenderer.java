@@ -4,26 +4,27 @@ import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import com.mojang.blaze3d.systems.RenderPass;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.MeshData;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.state.LevelRenderState;
-import net.minecraft.client.renderer.state.SkyRenderState;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.client.extensions.IDimensionSpecialEffectsExtension;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import net.minecraft.client.multiplayer.ClientLevel;
+
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 
-public final class UvlaSkyRenderer implements IDimensionSpecialEffectsExtension, AutoCloseable {
+public final class UvlaSkyRenderer implements AutoCloseable {
 
     /* ==========================================================
        Client lunar state
@@ -43,22 +44,19 @@ public final class UvlaSkyRenderer implements IDimensionSpecialEffectsExtension,
        Rendering resources
        ========================================================== */
 
-    private final TextureManager textureManager;
-
-    // Unit quad: POSITION_TEX, 4 verts
-    private final GpuBuffer quadBuffer;
-
-    // Shared quad indices (6 indices per quad)
-    private final RenderSystem.AutoStorageIndexBuffer quadIndices = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
-
-    // Reuse constants to avoid per-frame allocations
     private static final Vector4f WHITE = new Vector4f(1f, 1f, 1f, 1f);
     private static final Vector3f ORIGIN = new Vector3f(0f, 0f, 0f);
     private static final Matrix4f IDENTITY_UV = new Matrix4f().identity();
 
-    // Visual tuning
     private static final float MOON_SCALE = 30.0F;
     private static final float MOON_HEIGHT = 100.0F;
+
+    private final TextureManager textureManager;
+    private final GpuBuffer quadBuffer;
+
+    // shared sequential index generator for QUADS -> indices
+    private final RenderSystem.AutoStorageIndexBuffer quadIndices =
+            RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
 
     public UvlaSkyRenderer(TextureManager textureManager) {
         this.textureManager = textureManager;
@@ -66,27 +64,37 @@ public final class UvlaSkyRenderer implements IDimensionSpecialEffectsExtension,
     }
 
     /* ==========================================================
-       NeoForge hook: called by DimensionSpecialEffects
+       Public entry point
        ========================================================== */
 
-    @Override
-    public boolean renderSky(LevelRenderState levelRenderState, SkyRenderState skyRenderState, Matrix4f modelViewMatrix, Runnable setupFog) {
+    /**
+     * Call this from your DimensionSpecialEffects renderSky(...) implementation.
+     *
+     * @param modelViewMatrix the sky pass modelView matrix provided by MC/NeoForge
+     */
+    public void render(ClientLevel level, Matrix4f modelViewMatrix, Runnable setupFog) {
         setupFog.run();
+
+        // Use MC's sky pass matrix, but remove translation so the sky doesn't "parallax drift"
+        Matrix4f rotOnly = new Matrix4f(modelViewMatrix);
+        rotOnly.m30(0f);
+        rotOnly.m31(0f);
+        rotOnly.m32(0f);
 
         Matrix4fStack mv = RenderSystem.getModelViewStack();
         mv.pushMatrix();
-        mv.mul(modelViewMatrix);
-
         try {
-            float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
-            renderUvlaMoons(mv, (ClientLevel) Minecraft.getInstance().level, partialTick);
+            mv.mul(rotOnly);
+
+            float partialTick = Minecraft.getInstance()
+                    .getDeltaTracker()
+                    .getGameTimeDeltaPartialTick(true);
+
+            renderUvlaMoons(mv, level, partialTick);
         } finally {
             mv.popMatrix();
         }
-
-        return true; // <-- THIS is what blocks vanilla sky (sun/moon/stars)
     }
-
 
     /* ==========================================================
        Moon rendering
@@ -100,18 +108,19 @@ public final class UvlaSkyRenderer implements IDimensionSpecialEffectsExtension,
         }
     }
 
-    private void renderSingleMoon(Matrix4fStack baseModelView, UvlaMoon moon, float angleDeg, int phaseIndex) {
-        // All transforms for this moon happen on a pushed matrix stack
-        baseModelView.pushMatrix();
+    private void renderSingleMoon(Matrix4fStack modelView, UvlaMoon moon, float angleDeg, int phaseIndex) {
+        modelView.pushMatrix();
         try {
-            // Sky-style orientation
-            baseModelView.rotate(Axis.YP.rotationDegrees(-90.0F));
-            baseModelView.rotate(Axis.XP.rotationDegrees(angleDeg));
-            baseModelView.translate(0.0F, MOON_HEIGHT, 0.0F);
-            baseModelView.scale(MOON_SCALE, 1.0F, MOON_SCALE);
+            // “sky quad” convention: rotate into sky space, then pitch by angle
+            modelView.rotate(Axis.YP.rotationDegrees(-90.0F));
+            modelView.rotate(Axis.XP.rotationDegrees(angleDeg));
+
+            // position and size
+            modelView.translate(0.0F, MOON_HEIGHT, 0.0F);
+            modelView.scale(MOON_SCALE, MOON_SCALE, MOON_SCALE);
 
             GpuBufferSlice transforms = RenderSystem.getDynamicUniforms().writeTransform(
-                    baseModelView,
+                    modelView,
                     WHITE,
                     ORIGIN,
                     IDENTITY_UV,
@@ -141,12 +150,11 @@ public final class UvlaSkyRenderer implements IDimensionSpecialEffectsExtension,
                 GpuBuffer indexBuffer = quadIndices.getBuffer(6);
                 pass.setIndexBuffer(indexBuffer, quadIndices.type());
 
-                // In this API, the signature is (firstIndex, baseVertex, indexCount, instanceCount)
-                // (This matches how vanilla SkyRenderer calls it in 1.21.10.)
+                // 1.21.x sky code path uses: (firstIndex, baseVertex, indexCount, instanceCount)
                 pass.drawIndexed(0, 0, 6, 1);
             }
         } finally {
-            baseModelView.popMatrix();
+            modelView.popMatrix();
         }
     }
 
@@ -161,8 +169,7 @@ public final class UvlaSkyRenderer implements IDimensionSpecialEffectsExtension,
         try (ByteBufferBuilder builder = ByteBufferBuilder.exactlySized(bytesNeeded)) {
             BufferBuilder buffer = new BufferBuilder(builder, VertexFormat.Mode.QUADS, format);
 
-            // Same winding/UV convention as vanilla celestial quads
-            Matrix4f m = new Matrix4f();
+            Matrix4f m = new Matrix4f(); // identity
             buffer.addVertex(m, -1, 0, -1).setUv(0f, 1f);
             buffer.addVertex(m,  1, 0, -1).setUv(1f, 1f);
             buffer.addVertex(m,  1, 0,  1).setUv(1f, 0f);
@@ -182,38 +189,19 @@ public final class UvlaSkyRenderer implements IDimensionSpecialEffectsExtension,
        Orbital math
        ========================================================== */
 
-    private static float getMoonOrbitAngle(Level level, float partialTick, UvlaMoon moon) {
+    private static float getMoonOrbitAngle(ClientLevel level, float partialTick, UvlaMoon moon) {
         float days = (level.getDayTime() + partialTick) / 24000.0F;
         float fraction = (days / moon.orbitalPeriodDays()) % 1.0F;
         return fraction * 360.0F + moon.angleOffsetDeg();
     }
 
-    private static int getMoonPhase(Level level, float partialTick, UvlaMoon moon) {
+    private static int getMoonPhase(ClientLevel level, float partialTick, UvlaMoon moon) {
         float days = (level.getDayTime() + partialTick) / 24000.0F;
         float cycle = (days / moon.orbitalPeriodDays()) % 1.0F;
         int phase = (int) (cycle * moon.phaseCount());
         return Mth.clamp(phase, 0, moon.phaseCount() - 1);
     }
-    public void render(PoseStack poseStack, Matrix4f modelViewMatrix, long frameTimeNs, ClientLevel level, Runnable setupFog) {
-        setupFog.run();
 
-        // Neo/vanilla sky rendering uses RenderSystem's ModelViewStack.
-        // We need to push the modelViewMatrix (the one MC gives for sky pass)
-        // so our dynamic uniforms are correct.
-        Matrix4fStack mv = RenderSystem.getModelViewStack();
-        mv.pushMatrix();
-        mv.mul(modelViewMatrix);
-
-        try {
-            // Convert ns -> partialTick-ish if you want motion to interpolate.
-            // If you already compute from level time, you can ignore frameTimeNs.
-            float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
-
-            renderUvlaMoons(mv, level, partialTick); // implement this signature
-        } finally {
-            mv.popMatrix();
-        }
-    }
     /* ==========================================================
        Cleanup
        ========================================================== */
