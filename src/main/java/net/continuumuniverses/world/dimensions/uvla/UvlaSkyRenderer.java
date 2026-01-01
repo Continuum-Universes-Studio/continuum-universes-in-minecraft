@@ -75,16 +75,11 @@ public final class UvlaSkyRenderer implements AutoCloseable {
     public void render(ClientLevel level, Matrix4f modelViewMatrix, Runnable setupFog) {
         setupFog.run();
 
-        // Use MC's sky pass matrix, but remove translation so the sky doesn't "parallax drift"
-        Matrix4f rotOnly = new Matrix4f(modelViewMatrix);
-        rotOnly.m30(0f);
-        rotOnly.m31(0f);
-        rotOnly.m32(0f);
-
         Matrix4fStack mv = RenderSystem.getModelViewStack();
         mv.pushMatrix();
         try {
-            mv.mul(rotOnly);
+            // Keep moons world-oriented: ignore camera rotation and translation.
+            mv.identity();
 
             float partialTick = Minecraft.getInstance()
                     .getDeltaTracker()
