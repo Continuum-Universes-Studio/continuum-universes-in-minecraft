@@ -195,13 +195,13 @@ public final class UvlaSkyRenderer implements AutoCloseable {
        ========================================================== */
 
     private static float getMoonOrbitAngle(ClientLevel level, float partialTick, UvlaMoon moon) {
-        float days = (level.getDayTime() + partialTick) / 24000.0F;
+        float days = (level.getGameTime() + partialTick) / 24000.0F;
         float fraction = (days / moon.orbitalPeriodDays()) % 1.0F;
         return fraction * 360.0F + moon.angleOffsetDeg();
     }
 
     private static int getMoonPhase(ClientLevel level, float partialTick, UvlaMoon moon) {
-        float days = (level.getDayTime() + partialTick) / 24000.0F;
+        float days = (level.getGameTime() + partialTick) / 24000.0F;
         float cycle = (days / moon.orbitalPeriodDays() + getMoonPhaseOffset(moon)) % 1.0F;
         int phase = (int) (cycle * moon.phaseCount());
         return Mth.clamp(phase, 0, moon.phaseCount() - 1);
