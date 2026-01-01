@@ -38,7 +38,7 @@ public final class UvlaDimensionSpecialEffects extends DimensionSpecialEffects {
 
         PoseStack poseStack = new PoseStack();
         poseStack.mulPose(modelViewMatrix);
-        skyRenderer.render(poseStack, modelViewMatrix, Minecraft.getInstance().getFrameTime(), Minecraft.getInstance().level, setupFog);
+        skyRenderer.render(poseStack, modelViewMatrix, Minecraft.getInstance().getFrameTimeNs(), Minecraft.getInstance().level, setupFog);
         return true;
     }
 }
