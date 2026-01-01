@@ -8,6 +8,7 @@ public record UvlaMoon(
         String id,              // "kaira"
         int phaseCount,         // 16
         float angleOffsetDeg,   // starting angle offset
+        float orbitTiltDeg,     // tilt of orbital plane
         float orbitalPeriodDays,
         float size,             // your scale factor, if you want it
         float brightness,       // if you want it later

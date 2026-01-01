@@ -15,6 +15,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.joml.Matrix4f;
@@ -51,6 +52,10 @@ public final class UvlaSkyRenderer implements AutoCloseable {
 
     private static final float MOON_SCALE = 30.0F;
     private static final float MOON_HEIGHT = 100.0F;
+    private static final float SUN_SCALE = 45.0F;
+    private static final float SUN_HEIGHT = 140.0F;
+    private static final ResourceLocation SUN_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath("minecraft", "textures/environment/sun.png");
 
     private final TextureManager textureManager;
     private final GpuBuffer quadBuffer;
@@ -91,6 +96,7 @@ public final class UvlaSkyRenderer implements AutoCloseable {
                     .getDeltaTracker()
                     .getGameTimeDeltaPartialTick(true);
 
+            renderUvlaSun(mv, level, partialTick, rotOnly);
             renderUvlaMoons(mv, level, partialTick, rotOnly);
         } finally {
             mv.popMatrix();
@@ -109,11 +115,61 @@ public final class UvlaSkyRenderer implements AutoCloseable {
         }
     }
 
+    private void renderUvlaSun(Matrix4fStack modelView, ClientLevel level, float partialTick, Matrix4f rotOnly) {
+        float angleDeg = getSunOrbitAngle(level, partialTick);
+
+        modelView.pushMatrix();
+        try {
+            modelView.rotate(Axis.YP.rotationDegrees(-90.0F));
+            modelView.rotate(Axis.XP.rotationDegrees(angleDeg));
+            modelView.translate(0.0F, SUN_HEIGHT, 0.0F);
+            modelView.scale(SUN_SCALE, SUN_SCALE, SUN_SCALE);
+            modelView.mulLocal(rotOnly);
+
+            GpuBufferSlice transforms = RenderSystem.getDynamicUniforms().writeTransform(
+                    modelView,
+                    WHITE,
+                    ORIGIN,
+                    IDENTITY_UV,
+                    1.0f
+            );
+
+            var device = RenderSystem.getDevice();
+            var target = Minecraft.getInstance().getMainRenderTarget();
+
+            AbstractTexture tex = textureManager.getTexture(SUN_TEXTURE);
+
+            try (RenderPass pass = device.createCommandEncoder().createRenderPass(
+                    () -> "Uvla sun",
+                    target.getColorTextureView(),
+                    OptionalInt.empty(),
+                    target.getDepthTextureView(),
+                    OptionalDouble.empty()
+            )) {
+                pass.setPipeline(RenderPipelines.CELESTIAL);
+                RenderSystem.bindDefaultUniforms(pass);
+
+                pass.setUniform("DynamicTransforms", transforms);
+                pass.bindSampler("Sampler0", tex.getTextureView());
+
+                pass.setVertexBuffer(0, quadBuffer);
+
+                GpuBuffer indexBuffer = quadIndices.getBuffer(6);
+                pass.setIndexBuffer(indexBuffer, quadIndices.type());
+
+                pass.drawIndexed(0, 0, 6, 1);
+            }
+        } finally {
+            modelView.popMatrix();
+        }
+    }
+
     private void renderSingleMoon(Matrix4fStack modelView, UvlaMoon moon, float angleDeg, int phaseIndex, Matrix4f rotOnly) {
         modelView.pushMatrix();
         try {
             // “sky quad” convention: rotate into sky space, then pitch by angle
             modelView.rotate(Axis.YP.rotationDegrees(-90.0F));
+            modelView.rotate(Axis.ZP.rotationDegrees(moon.orbitTiltDeg()));
             modelView.rotate(Axis.XP.rotationDegrees(angleDeg));
 
             // position and size
@@ -198,6 +254,12 @@ public final class UvlaSkyRenderer implements AutoCloseable {
         float days = (level.getDayTime() + partialTick) / 24000.0F;
         float fraction = (days / moon.orbitalPeriodDays()) % 1.0F;
         return fraction * 360.0F + moon.angleOffsetDeg();
+    }
+
+    private static float getSunOrbitAngle(ClientLevel level, float partialTick) {
+        float days = (level.getDayTime() + partialTick) / 24000.0F;
+        float fraction = days % 1.0F;
+        return fraction * 360.0F;
     }
 
     private static int getMoonPhase(ClientLevel level, float partialTick, UvlaMoon moon) {

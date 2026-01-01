@@ -34,6 +34,9 @@
     [],
     [],
     [],
-    ["minecraft:trees_swamp"]
+    [
+      "continuumuniverses:uvla_willow_tree",
+      "continuumuniverses:uvla_mangrove_tree"
+    ]
   ]
 }
