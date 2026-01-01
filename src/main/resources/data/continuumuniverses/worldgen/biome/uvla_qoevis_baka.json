@@ -6,7 +6,7 @@
     "foliage_color": -16763905,
     "grass_color": -16776961,
     "sky_color": -16764109,
-    "fog_color": -16764160,
+    "fog_color": -9799062,
     "water_color": -13369600,
     "water_fog_color": -16738048
   },
@@ -36,9 +36,8 @@
     [],
     [],
     [
-      "continuumuniverses:uvla_qoevis_baka_tree",
+      "continuumuniverses:uvla_giant_tree",
       "minecraft:patch_grass_forest",
-      "minecraft:trees_jungle",
       "minecraft:patch_grass_jungle"
     ],
     [

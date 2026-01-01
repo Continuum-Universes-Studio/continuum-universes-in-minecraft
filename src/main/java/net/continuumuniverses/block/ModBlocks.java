@@ -2,6 +2,7 @@ package net.continuumuniverses.block;
 
 import net.continuumuniverses.ContinuumUniverses;
 import net.continuumuniverses.item.ModItems;
+import net.continuumuniverses.world.gen.UvlaTreeGrowers;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -128,14 +129,39 @@ public class ModBlocks {
                     "uvla_leaves",
                     UvlaLeavesBlock::new
             );
-    public static final DeferredHolder<Block, UvlaStairsBlock> UVLA_STAIRS =
+    public static final DeferredHolder<Block, SaplingBlock> UVLA_WILLOW_SAPLING =
             registerBlock(
-                    "uvla_stairs",
-                    (properties) -> new UvlaStairsBlock(
-                            () -> ModBlocks.UVLA_PLANKS.get().defaultBlockState(),
-                            properties.strength(2f).requiresCorrectToolForDrops()
-                    )
+                    "uvla_willow_sapling",
+                    props -> new SaplingBlock(UvlaTreeGrowers.UVLA_WILLOW, props),
+                    BlockBehaviour.Properties.of()
+                            .noCollission()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
             );
+    public static final DeferredHolder<Block, SaplingBlock> UVLA_MANGROVE_SAPLING =
+            registerBlock(
+                    "uvla_mangrove_sapling",
+                    props -> new SaplingBlock(UvlaTreeGrowers.UVLA_MANGROVE, props),
+                    BlockBehaviour.Properties.of()
+                            .noCollission()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+            );
+    public static final DeferredHolder<Block, SaplingBlock> UVLA_GIANT_SAPLING =
+            registerBlock(
+                    "uvla_giant_sapling",
+                    props -> new SaplingBlock(UvlaTreeGrowers.UVLA_GIANT, props),
+                    BlockBehaviour.Properties.of()
+                            .noCollission()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+            );
+    public static final DeferredBlock<StairBlock> UVLA_STAIRS = registerBlock("bismuth_stairs",
+            (properties) -> new StairBlock(ModBlocks.UVLA_PLANKS.get().defaultBlockState(),
+                    properties.strength(2f).requiresCorrectToolForDrops()));
 
 
 

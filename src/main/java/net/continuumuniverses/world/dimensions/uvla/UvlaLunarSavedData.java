@@ -29,7 +29,19 @@ public class UvlaLunarSavedData extends SavedData {
                             .forGetter(sd -> sd.kairaEvent),
                     Codec.LONG.fieldOf("LastRolledDay")
                             .orElse(-1L)
-                            .forGetter(sd -> sd.lastRolledDay)
+                            .forGetter(sd -> sd.lastRolledDay),
+                    Codec.BOOL.fieldOf("AlignmentOccurred")
+                            .orElse(false)
+                            .forGetter(sd -> sd.alignmentOccurred),
+                    Codec.LONG.fieldOf("AlignmentDay")
+                            .orElse(-1L)
+                            .forGetter(sd -> sd.alignmentDay),
+                    Codec.LONG.fieldOf("RainDay")
+                            .orElse(-1L)
+                            .forGetter(sd -> sd.rainDay),
+                    Codec.INT.fieldOf("RainSlots")
+                            .orElse(0)
+                            .forGetter(sd -> sd.rainSlots)
             ).apply(instance, UvlaLunarSavedData::new));
 
     // NeoForge docs note: DataFixTypes parameter exists but can be null in their patched vanilla use cases.
@@ -38,14 +50,27 @@ public class UvlaLunarSavedData extends SavedData {
 
     private KairaLunarEvent kairaEvent = KairaLunarEvent.NONE;
     private long lastRolledDay = -1L;
+    private boolean alignmentOccurred = false;
+    private long alignmentDay = -1L;
+    private long rainDay = -1L;
+    private int rainSlots = 0;
 
     // Default constructor (used when no data exists yet)
     public UvlaLunarSavedData() {}
 
     // “data constructor” (used by the codec)
-    public UvlaLunarSavedData(KairaLunarEvent event, long lastRolledDay) {
+    public UvlaLunarSavedData(KairaLunarEvent event,
+                              long lastRolledDay,
+                              boolean alignmentOccurred,
+                              long alignmentDay,
+                              long rainDay,
+                              int rainSlots) {
         this.kairaEvent = event;
         this.lastRolledDay = lastRolledDay;
+        this.alignmentOccurred = alignmentOccurred;
+        this.alignmentDay = alignmentDay;
+        this.rainDay = rainDay;
+        this.rainSlots = rainSlots;
     }
 
     public KairaLunarEvent getKairaEvent() {
@@ -63,6 +88,39 @@ public class UvlaLunarSavedData extends SavedData {
 
     public void setLastRolledDay(long day) {
         this.lastRolledDay = day;
+        this.setDirty();
+    }
+
+    public boolean hasAlignmentOccurred() {
+        return alignmentOccurred;
+    }
+
+    public long getAlignmentDay() {
+        return alignmentDay;
+    }
+
+    public void setAlignmentOccurred(boolean occurred, long day) {
+        this.alignmentOccurred = occurred;
+        this.alignmentDay = day;
+        this.setDirty();
+    }
+
+    public long getRainDay() {
+        return rainDay;
+    }
+
+    public int getRainSlots() {
+        return rainSlots;
+    }
+
+    public void setRainDay(long day) {
+        this.rainDay = day;
+        this.rainSlots = 0;
+        this.setDirty();
+    }
+
+    public void markRainSlot(int slotBit) {
+        this.rainSlots |= slotBit;
         this.setDirty();
     }
 
