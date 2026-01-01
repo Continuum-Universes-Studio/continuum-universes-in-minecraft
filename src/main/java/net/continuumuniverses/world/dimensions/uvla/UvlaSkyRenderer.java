@@ -117,7 +117,8 @@ public final class UvlaSkyRenderer implements AutoCloseable {
 
             // position and size
             modelView.translate(0.0F, MOON_HEIGHT, 0.0F);
-            modelView.scale(MOON_SCALE, MOON_SCALE, MOON_SCALE);
+            float moonScale = MOON_SCALE * moon.size();
+            modelView.scale(moonScale, moonScale, moonScale);
 
             // Apply the camera rotation after moon transforms so orbits are world-oriented.
             modelView.mulLocal(rotOnly);
