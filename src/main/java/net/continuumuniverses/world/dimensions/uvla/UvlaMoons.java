@@ -9,8 +9,8 @@ public final class UvlaMoons {
             "kaira",
             16,
             0.0F,
-            15.0F,
-            0.3F,
+            3.0F,
+            0.6F,
             14.0F,
             0.0F // distance (unused right now)
     );
@@ -19,8 +19,8 @@ public final class UvlaMoons {
             "nenja",
             16,
             120.0F,
-            22.0F,
-            0.5F,
+            4.5F,
+            0.3F,
             28.0F,
             0.0F
     );
@@ -29,8 +29,8 @@ public final class UvlaMoons {
             "maira",
             16,
             240.0F,   // (you had 120 twice; I made this 240 so the 3 moons are evenly spaced)
-            32.0F,
-            0.5F,
+            6.5F,
+            0.45F,
             32.0F,
             0.0F
     );

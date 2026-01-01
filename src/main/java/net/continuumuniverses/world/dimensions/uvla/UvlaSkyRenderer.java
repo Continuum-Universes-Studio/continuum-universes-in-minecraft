@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
 import org.joml.Vector3f;
@@ -75,17 +76,22 @@ public final class UvlaSkyRenderer implements AutoCloseable {
     public void render(ClientLevel level, Matrix4f modelViewMatrix, Runnable setupFog) {
         setupFog.run();
 
+        // Use MC's sky pass matrix, but remove translation so the sky doesn't "parallax drift"
+        Matrix4f rotOnly = new Matrix4f(modelViewMatrix);
+        rotOnly.m30(0f);
+        rotOnly.m31(0f);
+        rotOnly.m32(0f);
+
         Matrix4fStack mv = RenderSystem.getModelViewStack();
         mv.pushMatrix();
         try {
-            // Keep moons world-oriented: ignore camera rotation and translation.
             mv.identity();
 
             float partialTick = Minecraft.getInstance()
                     .getDeltaTracker()
                     .getGameTimeDeltaPartialTick(true);
 
-            renderUvlaMoons(mv, level, partialTick);
+            renderUvlaMoons(mv, level, partialTick, rotOnly);
         } finally {
             mv.popMatrix();
         }
@@ -95,15 +101,15 @@ public final class UvlaSkyRenderer implements AutoCloseable {
        Moon rendering
        ========================================================== */
 
-    private void renderUvlaMoons(Matrix4fStack modelView, ClientLevel level, float partialTick) {
+    private void renderUvlaMoons(Matrix4fStack modelView, ClientLevel level, float partialTick, Matrix4f rotOnly) {
         for (UvlaMoon moon : UvlaMoons.ALL) {
             float angleDeg = getMoonOrbitAngle(level, partialTick, moon);
             int phaseIndex = getMoonPhase(level, partialTick, moon);
-            renderSingleMoon(modelView, moon, angleDeg, phaseIndex);
+            renderSingleMoon(modelView, moon, angleDeg, phaseIndex, rotOnly);
         }
     }
 
-    private void renderSingleMoon(Matrix4fStack modelView, UvlaMoon moon, float angleDeg, int phaseIndex) {
+    private void renderSingleMoon(Matrix4fStack modelView, UvlaMoon moon, float angleDeg, int phaseIndex, Matrix4f rotOnly) {
         modelView.pushMatrix();
         try {
             // “sky quad” convention: rotate into sky space, then pitch by angle
@@ -112,7 +118,11 @@ public final class UvlaSkyRenderer implements AutoCloseable {
 
             // position and size
             modelView.translate(0.0F, MOON_HEIGHT, 0.0F);
-            modelView.scale(MOON_SCALE, MOON_SCALE, MOON_SCALE);
+            float moonScale = MOON_SCALE * moon.size();
+            modelView.scale(moonScale, moonScale, moonScale);
+
+            // Apply the camera rotation after moon transforms so orbits are world-oriented.
+            modelView.mulLocal(rotOnly);
 
             GpuBufferSlice transforms = RenderSystem.getDynamicUniforms().writeTransform(
                     modelView,
@@ -192,9 +202,15 @@ public final class UvlaSkyRenderer implements AutoCloseable {
 
     private static int getMoonPhase(ClientLevel level, float partialTick, UvlaMoon moon) {
         float days = (level.getDayTime() + partialTick) / 24000.0F;
-        float cycle = (days / moon.orbitalPeriodDays()) % 1.0F;
+        float cycle = (days / moon.orbitalPeriodDays() + getMoonPhaseOffset(moon)) % 1.0F;
         int phase = (int) (cycle * moon.phaseCount());
         return Mth.clamp(phase, 0, moon.phaseCount() - 1);
+    }
+
+    private static float getMoonPhaseOffset(UvlaMoon moon) {
+        long mixed = (long) moon.id().hashCode() * 0x9E3779B97F4A7C15L;
+        RandomSource random = RandomSource.create(mixed);
+        return random.nextFloat();
     }
 
     /* ==========================================================
