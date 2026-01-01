@@ -6,6 +6,8 @@ import net.continuumuniverses.world.gen.UvlaTreeGrowers;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -231,7 +233,10 @@ public class ModBlocks {
     ) {
         DeferredBlock<T> toReturn = BLOCKS.register(
                 name,
-                () -> factory.apply(properties)
+                registryName -> {
+                    var key = ResourceKey.create(Registries.BLOCK, registryName);
+                    return factory.apply(properties.setId(key));
+                }
         );
         registerBlockItem(name, toReturn);
         return toReturn;
