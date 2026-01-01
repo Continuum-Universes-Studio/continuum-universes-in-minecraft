@@ -11,7 +11,7 @@
           "parameters": {
             "temperature": [-2.0, 2.0],
             "humidity": [0.6, 2.0],
-            "continentalness": [-2.0, -0.3],
+            "continentalness": [-2.0, -1.4],
             "erosion": [-2.0, 2.0],
             "weirdness": [-2.0, 2.0],
             "depth": [-2.0, 2.0],
@@ -23,7 +23,7 @@
           "parameters": {
             "temperature": [-2.0, 2.0],
             "humidity": [-2.0, 0.6],
-            "continentalness": [-0.3, 2.0],
+            "continentalness": [-1.4, 2.0],
             "erosion": [-2.0, 2.0],
             "weirdness": [0.3, 2.0],
             "depth": [-2.0, 2.0],
@@ -35,7 +35,7 @@
           "parameters": {
             "temperature": [-2.0, 2.0],
             "humidity": [-2.0, 0.6],
-            "continentalness": [-0.3, 2.0],
+            "continentalness": [-1.4, 2.0],
             "erosion": [-2.0, 2.0],
             "weirdness": [-2.0, 0.3],
             "depth": [-2.0, 2.0],
