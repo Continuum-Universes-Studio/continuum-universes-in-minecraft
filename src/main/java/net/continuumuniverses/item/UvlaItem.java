@@ -6,7 +6,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -38,10 +37,10 @@ public class UvlaItem extends Item {
 			level.playSound(null, targetPos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
 			ItemStack stack = context.getItemInHand();
 			if (context.getPlayer() != null) {
-				stack.hurtAndBreak(1, context.getPlayer(), LivingEntity.getSlotForHand(context.getHand()));
+				stack.hurtAndBreak(1, context.getPlayer(), context.getHand());
 			}
 		}
 
-		return InteractionResult.sidedSuccess(level.isClientSide());
+		return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
 	}
 }
