@@ -7,6 +7,7 @@ import net.continuumuniverses.inventory.ModCreativeTabs;
 import net.continuumuniverses.item.ModItems;
 import net.continuumuniverses.recipes.ModRecipes;
 import net.continuumuniverses.screen.ModMenuTypes;
+import net.continuumuniverses.world.poi.ModPOIs;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
@@ -38,6 +39,7 @@ public class ContinuumUniverses {
 		ModFluids.HELPER.ITEMS.register(modEventBus);
 
 		ModMenuTypes.MENU_TYPES.register(modEventBus);
+		ModPOIs.POIS.register(modEventBus);
 		//ModDimensionTypes.DIMENSION_TYPE.register(modEventBus);
 		ModCreativeTabs.TABS.register(modEventBus);
 

@@ -128,9 +128,14 @@ public class ModBlocks {
                     "uvla_leaves",
                     UvlaLeavesBlock::new
             );
-    public static final DeferredBlock<StairBlock> UVLA_STAIRS = registerBlock("bismuth_stairs",
-            (properties) -> new StairBlock(ModBlocks.UVLA_PLANKS.get().defaultBlockState(),
-                    properties.strength(2f).requiresCorrectToolForDrops()));
+    public static final DeferredHolder<Block, UvlaStairsBlock> UVLA_STAIRS =
+            registerBlock(
+                    "uvla_stairs",
+                    (properties) -> new UvlaStairsBlock(
+                            () -> ModBlocks.UVLA_PLANKS.get().defaultBlockState(),
+                            properties.strength(2f).requiresCorrectToolForDrops()
+                    )
+            );
 
 
 
