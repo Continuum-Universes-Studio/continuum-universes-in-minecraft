@@ -84,13 +84,13 @@ public final class UvlaSkyRenderer implements AutoCloseable {
         Matrix4fStack mv = RenderSystem.getModelViewStack();
         mv.pushMatrix();
         try {
-            mv.mul(rotOnly);
+            mv.identity();
 
             float partialTick = Minecraft.getInstance()
                     .getDeltaTracker()
                     .getGameTimeDeltaPartialTick(true);
 
-            renderUvlaMoons(mv, level, partialTick);
+            renderUvlaMoons(mv, level, partialTick, rotOnly);
         } finally {
             mv.popMatrix();
         }
@@ -100,15 +100,15 @@ public final class UvlaSkyRenderer implements AutoCloseable {
        Moon rendering
        ========================================================== */
 
-    private void renderUvlaMoons(Matrix4fStack modelView, ClientLevel level, float partialTick) {
+    private void renderUvlaMoons(Matrix4fStack modelView, ClientLevel level, float partialTick, Matrix4f rotOnly) {
         for (UvlaMoon moon : UvlaMoons.ALL) {
             float angleDeg = getMoonOrbitAngle(level, partialTick, moon);
             int phaseIndex = getMoonPhase(level, partialTick, moon);
-            renderSingleMoon(modelView, moon, angleDeg, phaseIndex);
+            renderSingleMoon(modelView, moon, angleDeg, phaseIndex, rotOnly);
         }
     }
 
-    private void renderSingleMoon(Matrix4fStack modelView, UvlaMoon moon, float angleDeg, int phaseIndex) {
+    private void renderSingleMoon(Matrix4fStack modelView, UvlaMoon moon, float angleDeg, int phaseIndex, Matrix4f rotOnly) {
         modelView.pushMatrix();
         try {
             // “sky quad” convention: rotate into sky space, then pitch by angle
@@ -118,6 +118,9 @@ public final class UvlaSkyRenderer implements AutoCloseable {
             // position and size
             modelView.translate(0.0F, MOON_HEIGHT, 0.0F);
             modelView.scale(MOON_SCALE, MOON_SCALE, MOON_SCALE);
+
+            // Apply the camera rotation after moon transforms so orbits are world-oriented.
+            modelView.mulLocal(rotOnly);
 
             GpuBufferSlice transforms = RenderSystem.getDynamicUniforms().writeTransform(
                     modelView,
