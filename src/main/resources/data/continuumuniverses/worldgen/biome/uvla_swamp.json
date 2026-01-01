@@ -6,7 +6,7 @@
     "foliage_color": -16750951,
     "grass_color": -16751002,
     "sky_color": -13369549,
-    "fog_color": -10027162,
+    "fog_color": -9799062,
     "water_color": -13395712,
     "water_fog_color": -13408768
   },
@@ -34,6 +34,9 @@
     [],
     [],
     [],
-    ["minecraft:trees_swamp"]
+    [
+      "continuumuniverses:uvla_willow_tree",
+      "continuumuniverses:uvla_mangrove_tree"
+    ]
   ]
 }

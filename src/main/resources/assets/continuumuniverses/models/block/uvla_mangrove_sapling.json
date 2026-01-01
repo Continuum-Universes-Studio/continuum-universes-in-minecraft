@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "continuumuniverses:block/uvla_leaves"
+  }
+}
