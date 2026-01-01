@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
 import org.joml.Vector3f;
@@ -201,9 +202,16 @@ public final class UvlaSkyRenderer implements AutoCloseable {
 
     private static int getMoonPhase(ClientLevel level, float partialTick, UvlaMoon moon) {
         float days = (level.getDayTime() + partialTick) / 24000.0F;
-        float cycle = (days / moon.orbitalPeriodDays()) % 1.0F;
+        float cycle = (days / moon.orbitalPeriodDays() + getMoonPhaseOffset(level, moon)) % 1.0F;
         int phase = (int) (cycle * moon.phaseCount());
         return Mth.clamp(phase, 0, moon.phaseCount() - 1);
+    }
+
+    private static float getMoonPhaseOffset(ClientLevel level, UvlaMoon moon) {
+        long seed = level.getSeed();
+        long mixed = seed ^ ((long) moon.id().hashCode() * 0x9E3779B97F4A7C15L);
+        RandomSource random = RandomSource.create(mixed);
+        return random.nextFloat();
     }
 
     /* ==========================================================
