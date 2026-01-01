@@ -35,9 +35,9 @@
     [],
     [],
     [
-      "continuumuniverses:uvla_forest_tree",
+      "continuumuniverses:uvla_giant_tree",
+      "continuumuniverses:uvla_willow_tree",
       "minecraft:patch_grass_forest",
-      "minecraft:trees_jungle",
       "minecraft:patch_grass_jungle"
     ],
     [

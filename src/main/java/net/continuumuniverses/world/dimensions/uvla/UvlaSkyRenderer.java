@@ -169,6 +169,7 @@ public final class UvlaSkyRenderer implements AutoCloseable {
         try {
             // “sky quad” convention: rotate into sky space, then pitch by angle
             modelView.rotate(Axis.YP.rotationDegrees(-90.0F));
+            modelView.rotate(Axis.ZP.rotationDegrees(moon.orbitTiltDeg()));
             modelView.rotate(Axis.XP.rotationDegrees(angleDeg));
 
             // position and size
