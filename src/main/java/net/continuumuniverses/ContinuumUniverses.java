@@ -29,6 +29,7 @@ public class ContinuumUniverses {
 		NeoForge.EVENT_BUS.register(this);
 
 		ModRecipes.SERIALIZERS.register(modEventBus);
+		ModRecipes.TYPES.register(modEventBus);
 		ModBlocks.BLOCKS.register(modEventBus);
 		ModItems.ITEMS.register(modEventBus);
 		ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
