@@ -1,13 +1,5 @@
 {
   "variants": {
-    "horizontal_facing=north,lit=false": { "model": "continuumuniverses:block/plasma_furnace" },
-    "horizontal_facing=south,lit=false": { "model": "continuumuniverses:block/plasma_furnace", "y": 180 },
-    "horizontal_facing=west,lit=false":  { "model": "continuumuniverses:block/plasma_furnace", "y": 270 },
-    "horizontal_facing=east,lit=false":  { "model": "continuumuniverses:block/plasma_furnace", "y": 90 },
-
-    "horizontal_facing=north,lit=true":  { "model": "continuumuniverses:block/plasma_furnace_on" },
-    "horizontal_facing=south,lit=true":  { "model": "continuumuniverses:block/plasma_furnace_on", "y": 180 },
-    "horizontal_facing=west,lit=true":   { "model": "continuumuniverses:block/plasma_furnace_on", "y": 270 },
-    "horizontal_facing=east,lit=true":   { "model": "continuumuniverses:block/plasma_furnace_on", "y": 90 }
+    "": { "model": "continuumuniverses:block/plasma_furnace" }
   }
 }
