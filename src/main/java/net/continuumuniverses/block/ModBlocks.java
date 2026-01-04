@@ -46,30 +46,30 @@ public class ModBlocks {
        ========================= */
 
     public static final DeferredBlock<DropExperienceBlock> VARKEST_ORE =
-            registerOreBlock("varkest_ore_block",20.0f, UniformInt.of(5, 9));
+            registerOreBlock("varkest_ore",20.0f, UniformInt.of(5, 9));
 
 
     public static final DeferredBlock<DropExperienceBlock>  LARZIKEST_ORE =
            registerOreBlock(
-                     "larzikest_ore_block",
+                     "larzikest_ore",
                      4.0f,
                      UniformInt.of(3, 7)
            );
     public static final DeferredBlock<DropExperienceBlock>  KORMIKEST_ORE =
             registerOreBlock(
-                    "kormikest_ore_block",
+                    "kormikest_ore",
                     3.5f,
                     UniformInt.of(4, 8)
             );
     public static final DeferredBlock<DropExperienceBlock> LETHURKEST_ORE =
             registerOreBlock(
-                    "lethurkest_ore_block",
+                    "lethurkest_ore",
                     40.0f,
                     UniformInt.of(20, 27)
             );
     public static final DeferredBlock<DropExperienceBlock>  STARSTEEL_ORE =
             registerOreBlock(
-                    "starsteel_ore_block",
+                    "starsteel_ore",
                     10.0f,
                     UniformInt.of(4, 7)
             );

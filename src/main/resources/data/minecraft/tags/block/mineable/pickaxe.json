@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "continuumuniverses:varkest_ore",
+    "continuumuniverses:starsteel_ore",
+    "continuumuniverses:lethurkest_ore",
+    "continuumuniverses:aethyril_ore",
+    "continuumuniverses:larzikest_ore"
+  ]
+}

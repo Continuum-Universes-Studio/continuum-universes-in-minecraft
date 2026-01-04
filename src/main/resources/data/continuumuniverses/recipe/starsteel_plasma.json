@@ -1,7 +1,7 @@
 {
   "type": "continuumuniverses:plasma",
   "ingredient": {
-    "item": "continuumuniverses:starsteel_ore_item"
+    "item": "continuumuniverses:raw_starsteel"
   },
   "result": { 
     "id": "continuumuniverses:starsteel_ingot",

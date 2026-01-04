@@ -2,7 +2,7 @@
   "type": "continuumuniverses:plasma",
   "ingredient": [ 
     {
-      "item": "continuumuniverses:larzikest_ore_item"
+      "item": "continuumuniverses:raw_larzikest"
     }
   ],  
   "result": {

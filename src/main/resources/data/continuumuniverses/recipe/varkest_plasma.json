@@ -2,7 +2,7 @@
   "type": "continuumuniverses:plasma",
   "ingredient": [
     {
-      "item": "continuumuniverses:varkest_ore_item"
+      "item": "continuumuniverses:raw_varkest"
     }
   ],
   "result": {
