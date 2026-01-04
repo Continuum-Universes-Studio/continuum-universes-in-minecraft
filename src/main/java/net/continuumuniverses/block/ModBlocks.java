@@ -4,6 +4,7 @@ import net.continuumuniverses.ContinuumUniverses;
 import net.continuumuniverses.item.ModItems;
 import net.continuumuniverses.world.gen.UvlaTreeGrowers;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.resources.ResourceKey;
@@ -14,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.minecraft.util.valueproviders.UniformInt;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
@@ -261,9 +263,14 @@ public class ModBlocks {
         registerBlockItem(name, block);
         return block;
     }
-
+    private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
+        DeferredBlock<T> toReturn = BLOCKS.register(name, block);
+        registerBlockItem(name, toReturn);
+        return toReturn;
+    }
 
     private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
-        ModItems.ITEMS.registerItem(name, (properties) -> new BlockItem(block.get(), properties.useBlockDescriptionPrefix()));
+        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
+
 }
