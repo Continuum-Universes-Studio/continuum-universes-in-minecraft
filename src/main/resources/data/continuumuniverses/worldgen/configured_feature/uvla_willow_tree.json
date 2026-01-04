@@ -49,10 +49,12 @@
     },
     "decorators": [
       {
-        "type": "minecraft:leave_vine"
+        "type": "minecraft:leave_vine",
+        "probability": 0.2
       },
       {
-        "type": "minecraft:trunk_vine"
+        "type": "minecraft:trunk_vine",
+        "probability": 0.2
       }
     ]
   }
