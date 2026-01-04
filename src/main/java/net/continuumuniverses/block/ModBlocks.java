@@ -1,28 +1,32 @@
 package net.continuumuniverses.block;
 
-import net.continuumuniverses.ContinuumUniverses;
-import net.continuumuniverses.item.ModItems;
-import net.continuumuniverses.world.gen.UvlaTreeGrowers;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.core.registries.Registries;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.minecraft.util.valueproviders.UniformInt;
-
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import net.continuumuniverses.ContinuumUniverses;
+import net.continuumuniverses.item.ModItems;
+import net.continuumuniverses.world.gen.UvlaTreeGrowers;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BlockBehaviour;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(ContinuumUniverses.MODID);
+
+    private ModBlocks() {
+    }
 
     public static final DeferredHolder<Block, PlasmaFurnaceBlock> PLASMA_FURNACE =
             registerBlock(
@@ -42,22 +46,20 @@ public class ModBlocks {
     public static final DeferredBlock<DropExperienceBlock> AETHYRIL_ORE =
             registerOreBlock("aethyril_ore", 3.0f, UniformInt.of(3, 7));
 
-
     /* =========================
        === ORES & BLOCKS ===
        ========================= */
 
     public static final DeferredBlock<DropExperienceBlock> VARKEST_ORE =
-            registerOreBlock("varkest_ore",20.0f, UniformInt.of(5, 9));
+            registerOreBlock("varkest_ore", 20.0f, UniformInt.of(5, 9));
 
-
-    public static final DeferredBlock<DropExperienceBlock>  LARZIKEST_ORE =
-           registerOreBlock(
-                     "larzikest_ore",
-                     4.0f,
-                     UniformInt.of(3, 7)
-           );
-    public static final DeferredBlock<DropExperienceBlock>  KORMIKEST_ORE =
+    public static final DeferredBlock<DropExperienceBlock> LARZIKEST_ORE =
+            registerOreBlock(
+                    "larzikest_ore",
+                    4.0f,
+                    UniformInt.of(3, 7)
+            );
+    public static final DeferredBlock<DropExperienceBlock> KORMIKEST_ORE =
             registerOreBlock(
                     "kormikest_ore",
                     3.5f,
@@ -69,7 +71,7 @@ public class ModBlocks {
                     40.0f,
                     UniformInt.of(20, 27)
             );
-    public static final DeferredBlock<DropExperienceBlock>  STARSTEEL_ORE =
+    public static final DeferredBlock<DropExperienceBlock> STARSTEEL_ORE =
             registerOreBlock(
                     "starsteel_ore",
                     10.0f,
@@ -80,21 +82,21 @@ public class ModBlocks {
             registerBlock(
                     "larzikest_block",
                     LarzikestBlockBlock::new
-              );
+            );
     public static final DeferredHolder<Block, LethurkestBlockBlock> LETHURKEST_BLOCK =
             registerBlock(
                     "lethurkest_block",
                     LethurkestBlockBlock::new
             );
     public static final DeferredHolder<Block, StarSteelBlockBlock> STARSTEEL_BLOCK =
-           registerBlock(
+            registerBlock(
                     "starsteel_block",
                     StarSteelBlockBlock::new
-           );
+            );
     public static final DeferredHolder<Block, VarkestBlockBlock> VARKEST_BLOCK =
             registerBlock("varkest_block", VarkestBlockBlock::new);
 
-/* =========================
+    /* =========================
        === UVLA WOOD SET ===
        ========================= */
 
@@ -133,6 +135,7 @@ public class ModBlocks {
                     "uvla_leaves",
                     UvlaLeavesBlock::new
             );
+
     public static final DeferredHolder<Block, SaplingBlock> UVLA_WILLOW_SAPLING =
             registerBlock(
                     "uvla_willow_sapling",
@@ -163,11 +166,15 @@ public class ModBlocks {
                             .instabreak()
                             .sound(SoundType.GRASS)
             );
-    public static final DeferredBlock<StairBlock> UVLA_STAIRS = registerBlock("bismuth_stairs",
-            (properties) -> new StairBlock(ModBlocks.UVLA_PLANKS.get().defaultBlockState(),
-                    properties.strength(2f).requiresCorrectToolForDrops()));
 
-
+    public static final DeferredBlock<StairBlock> UVLA_STAIRS =
+            registerBlock(
+                    "bismuth_stairs",
+                    properties -> new StairBlock(
+                            UVLA_PLANKS.get().defaultBlockState(),
+                            properties.strength(2f).requiresCorrectToolForDrops()
+                    )
+            );
 
     public static final DeferredHolder<Block, UvlaSlabBlock> UVLA_SLAB =
             registerBlock(
@@ -210,6 +217,7 @@ public class ModBlocks {
                     "uvla_button",
                     UvlaButtonBlock::new
             );
+
     /* =========================
        === FLUID / PORTAL ===
        ========================= */
@@ -224,10 +232,11 @@ public class ModBlocks {
             String name,
             Function<BlockBehaviour.Properties, T> factory
     ) {
-        DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, factory); // <-- THIS
+        DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, factory);
         registerBlockItem(name, toReturn);
         return toReturn;
     }
+
     private static <T extends Block> DeferredBlock<T> registerBlock(
             String name,
             Function<BlockBehaviour.Properties, T> factory,
@@ -243,7 +252,6 @@ public class ModBlocks {
         registerBlockItem(name, toReturn);
         return toReturn;
     }
-
 
     private static DeferredBlock<DropExperienceBlock> registerOreBlock(
             String name,
@@ -263,6 +271,7 @@ public class ModBlocks {
         registerBlockItem(name, block);
         return block;
     }
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
@@ -272,5 +281,4 @@ public class ModBlocks {
     private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
-
 }
