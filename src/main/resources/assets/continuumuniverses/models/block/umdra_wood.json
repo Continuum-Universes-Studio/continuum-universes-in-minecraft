@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "continuumuniverses:block/umdra_log",
+    "particle": "continuumuniverses:block/umdra_log"
+  },
+  "render_type": "solid"
+}
