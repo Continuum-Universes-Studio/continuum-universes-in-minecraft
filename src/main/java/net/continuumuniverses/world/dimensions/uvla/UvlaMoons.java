@@ -12,7 +12,7 @@ public final class UvlaMoons {
             0.0F,
             3.0F,
             0.6F,
-            14.0F,
+            6.0F,
             0.0F // distance (unused right now)
     );
 
@@ -23,7 +23,7 @@ public final class UvlaMoons {
             15.0F,
             4.5F,
             0.3F,
-            28.0F,
+            10.0F,
             0.0F
     );
 
@@ -34,7 +34,7 @@ public final class UvlaMoons {
             35.0F,
             6.5F,
             0.45F,
-            32.0F,
+            12.0F,
             0.0F
     );
 
