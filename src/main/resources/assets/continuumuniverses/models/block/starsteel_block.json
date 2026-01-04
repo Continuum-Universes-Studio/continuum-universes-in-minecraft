@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "continuumuniverses:block/starsteel_block",
+    "particle": "continuumuniverses:block/starsteel_block"
+  },
+  "render_type": "solid"
+}
