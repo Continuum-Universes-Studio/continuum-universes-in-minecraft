@@ -9,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.BlockUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NetherPortalBlock;
@@ -44,14 +43,13 @@ public class UvlaTeleporter {
 		}
 
 		return poiManager
-				.getInSquare(
+				.findAll(
 						poi -> poi.is(ModPOIs.UVLA_PORTAL_POI.unwrapKey().get()),
+						border::isWithinBounds,
 						origin,
 						radius,
 						PoiManager.Occupancy.ANY
 				)
-				.map(PoiRecord::getPos)
-				.filter(border::isWithinBounds)
 				.filter(pos -> level.getBlockState(pos).hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
 				.min(Comparator.<BlockPos>comparingDouble(pos -> pos.distSqr(origin)).thenComparingInt(Vec3i::getY));
 	}
