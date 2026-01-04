@@ -27,4 +27,7 @@ public final class UvlaTreeGrowers {
 
     public static final TreeGrower UVLA_GIANT =
             new TreeGrower("uvla_giant", Optional.of(key("uvla_giant_tree")), Optional.empty(), Optional.empty());
+
+    public static final TreeGrower UMDRA =
+            new TreeGrower("umdra", Optional.empty(), Optional.of(key("umdra_tree")), Optional.empty());
 }

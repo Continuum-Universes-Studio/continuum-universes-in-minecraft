@@ -133,6 +133,46 @@ public class ModBlocks {
                     UvlaLeavesBlock::new
             );
 
+    /* =========================
+       === UMDRA WOOD SET ===
+       ========================= */
+
+    public static final DeferredHolder<Block, UmdraLogBlock> UMDRA_LOG =
+            registerBlock(
+                    "umdra_log",
+                    UmdraLogBlock::new
+            );
+
+    public static final DeferredHolder<Block, UmdraWoodBlock> UMDRA_WOOD =
+            registerBlock(
+                    "umdra_wood",
+                    UmdraWoodBlock::new
+            );
+
+    public static final DeferredHolder<Block, StrippedUmdraLogBlock> STRIPPED_UMDRA_LOG =
+            registerBlock(
+                    "stripped_umdra_log",
+                    StrippedUmdraLogBlock::new
+            );
+
+    public static final DeferredHolder<Block, StrippedUmdraWoodBlock> STRIPPED_UMDRA_WOOD =
+            registerBlock(
+                    "stripped_umdra_wood",
+                    StrippedUmdraWoodBlock::new
+            );
+
+    public static final DeferredHolder<Block, UmdraPlanksBlock> UMDRA_PLANKS =
+            registerBlock(
+                    "umdra_planks",
+                    UmdraPlanksBlock::new
+            );
+
+    public static final DeferredHolder<Block, UmdraLeavesBlock> UMDRA_LEAVES =
+            registerBlock(
+                    "umdra_leaves",
+                    UmdraLeavesBlock::new
+            );
+
     public static final DeferredHolder<Block, SaplingBlock> UVLA_WILLOW_SAPLING =
             registerBlock(
                     "uvla_willow_sapling",
@@ -157,6 +197,16 @@ public class ModBlocks {
             registerBlock(
                     "uvla_giant_sapling",
                     props -> new SaplingBlock(UvlaTreeGrowers.UVLA_GIANT, props),
+                    BlockBehaviour.Properties.of()
+                            .noCollision()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+            );
+    public static final DeferredHolder<Block, SaplingBlock> UMDRA_SAPLING =
+            registerBlock(
+                    "umdra_sapling",
+                    props -> new SaplingBlock(UvlaTreeGrowers.UMDRA, props),
                     BlockBehaviour.Properties.of()
                             .noCollision()
                             .randomTicks()
