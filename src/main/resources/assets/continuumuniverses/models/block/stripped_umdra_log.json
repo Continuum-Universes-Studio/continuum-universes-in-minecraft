@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "continuumuniverses:block/stripped_umdra_log_top",
+    "side": "continuumuniverses:block/stripped_umdra_log"
+  },
+  "render_type": "solid"
+}
