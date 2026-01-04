@@ -25,9 +25,6 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(ContinuumUniverses.MODID);
 
-    private ModBlocks() {
-    }
-
     public static final DeferredHolder<Block, PlasmaFurnaceBlock> PLASMA_FURNACE =
             registerBlock(
                     "plasma_furnace",
@@ -166,15 +163,13 @@ public class ModBlocks {
                             .instabreak()
                             .sound(SoundType.GRASS)
             );
-
-    public static final DeferredBlock<StairBlock> UVLA_STAIRS =
-            registerBlock(
-                    "bismuth_stairs",
-                    properties -> new StairBlock(
-                            UVLA_PLANKS.get().defaultBlockState(),
-                            properties.strength(2f).requiresCorrectToolForDrops()
-                    )
-            );
+    public static final DeferredBlock<StairBlock> UVLA_STAIRS = registerBlock(
+            "bismuth_stairs",
+            properties -> new StairBlock(
+                    ModBlocks.UVLA_PLANKS.get().defaultBlockState(),
+                    properties.strength(2f).requiresCorrectToolForDrops()
+            )
+    );
 
     public static final DeferredHolder<Block, UvlaSlabBlock> UVLA_SLAB =
             registerBlock(
