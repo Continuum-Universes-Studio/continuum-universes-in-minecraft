@@ -1,5 +1,5 @@
 {
-  "parent": "continuumuniverses:block/varkest_ore_block",
+  "parent": "continuumuniverses:block/varkest_ore",
   "display": {
     "thirdperson": {
       "rotation": [

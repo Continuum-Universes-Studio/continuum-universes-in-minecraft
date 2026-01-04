@@ -6,11 +6,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "continuumuniverses:uvla_log"
+          "name": "continuumuniverses:kormikest_ore"
         }
       ],
       "conditions": [
-        { "condition": "minecraft:survives_explosion" }
+        {
+          "condition": "minecraft:survives_explosion"
+        }
       ]
     }
   ]
