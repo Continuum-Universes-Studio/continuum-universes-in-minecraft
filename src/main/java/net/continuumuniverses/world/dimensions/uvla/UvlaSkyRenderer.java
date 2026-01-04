@@ -23,6 +23,7 @@ import org.joml.Matrix4fStack;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.util.Comparator;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 
@@ -51,9 +52,8 @@ public final class UvlaSkyRenderer implements AutoCloseable {
     private static final Matrix4f IDENTITY_UV = new Matrix4f().identity();
 
     private static final float MOON_SCALE = 30.0F;
-    private static final float MOON_HEIGHT = 100.0F;
     private static final float SUN_SCALE = 45.0F;
-    private static final float SUN_HEIGHT = 140.0F;
+    private static final float SUN_HEIGHT = 220.0F;
     private static final ResourceLocation SUN_TEXTURE =
             ResourceLocation.fromNamespaceAndPath("minecraft", "textures/environment/sun.png");
 
@@ -108,7 +108,9 @@ public final class UvlaSkyRenderer implements AutoCloseable {
        ========================================================== */
 
     private void renderUvlaMoons(Matrix4fStack modelView, ClientLevel level, float partialTick, Matrix4f rotOnly) {
-        for (UvlaMoon moon : UvlaMoons.ALL) {
+        for (UvlaMoon moon : UvlaMoons.ALL.stream()
+                .sorted(Comparator.comparing(UvlaMoon::distance).reversed())
+                .toList()) {
             float angleDeg = getMoonOrbitAngle(level, partialTick, moon);
             int phaseIndex = getMoonPhase(level, partialTick, moon);
             renderSingleMoon(modelView, moon, angleDeg, phaseIndex, rotOnly);
@@ -173,7 +175,7 @@ public final class UvlaSkyRenderer implements AutoCloseable {
             modelView.rotate(Axis.XP.rotationDegrees(angleDeg));
 
             // position and size
-            modelView.translate(0.0F, MOON_HEIGHT, 0.0F);
+            modelView.translate(0.0F, moon.distance(), 0.0F);
             float moonScale = MOON_SCALE * moon.size();
             modelView.scale(moonScale, moonScale, moonScale);
 

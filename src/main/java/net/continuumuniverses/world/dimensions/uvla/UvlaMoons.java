@@ -13,7 +13,7 @@ public final class UvlaMoons {
             3.0F,
             0.6F,
             6.0F,
-            0.0F // distance (unused right now)
+            110.0F
     );
 
     public static final UvlaMoon NENJA = new UvlaMoon(
@@ -24,7 +24,7 @@ public final class UvlaMoons {
             4.5F,
             0.3F,
             10.0F,
-            0.0F
+            170.0F
     );
 
     public static final UvlaMoon MAIRA = new UvlaMoon(
@@ -35,7 +35,7 @@ public final class UvlaMoons {
             6.5F,
             0.45F,
             12.0F,
-            0.0F
+            140.0F
     );
 
     public static final List<UvlaMoon> ALL = List.of(KAIRA, NENJA, MAIRA);
