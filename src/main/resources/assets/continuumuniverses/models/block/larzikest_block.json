@@ -2,7 +2,7 @@
   "parent": "block/cube_all",
   "textures": {
     "all": "continuumuniverses:block/larzikest_block",
-    "particle": "continuumuniverses:block/larzikest_ore_block"
+    "particle": "continuumuniverses:block/larzikest_block"
   },
   "render_type": "solid"
 }
