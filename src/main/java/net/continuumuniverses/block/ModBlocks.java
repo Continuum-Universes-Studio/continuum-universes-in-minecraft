@@ -92,7 +92,8 @@ public class ModBlocks {
             );
     public static final DeferredHolder<Block, VarkestBlockBlock> VARKEST_BLOCK =
             registerBlock("varkest_block", VarkestBlockBlock::new);
-
+    public static final DeferredHolder<Block, AethyrilBlockBlock> AETHYRIL_BLOCK =
+            registerBlock("aethyril_block", AethyrilBlockBlock::new);
     /* =========================
        === UVLA WOOD SET ===
        ========================= */
@@ -255,7 +256,13 @@ public class ModBlocks {
                     "uvla_button",
                     UvlaButtonBlock::new
             );
-
+    public static final DeferredBlock<StairBlock> UVLA_STAIRS = registerBlock(
+            "uvla_stairs",
+            properties -> new StairBlock(
+                    ModBlocks.UVLA_PLANKS.get().defaultBlockState(),
+                    properties.strength(2f).requiresCorrectToolForDrops()
+            )
+    );
     /* =========================
        === FLUID / PORTAL ===
        ========================= */
