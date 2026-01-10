@@ -22,12 +22,16 @@ public class HollowMushroomFoliagePlacer extends FoliagePlacer {
     private static <P extends HollowMushroomFoliagePlacer> P3<Mu<P>, IntProvider, IntProvider, Integer> hollowMushroomParts(
             Instance<P> instance
     ) {
-        return foliagePlacerParts(instance).and(Codec.intRange(1, 16).fieldOf("height").forGetter(placer -> placer.height));
+        return foliagePlacerParts(instance).and(Codec.intRange(1, 16).fieldOf("height").forGetter(HollowMushroomFoliagePlacer::getHeight));
     }
 
     public HollowMushroomFoliagePlacer(IntProvider radius, IntProvider offset, int height) {
         super(radius, offset);
         this.height = height;
+    }
+
+    private int getHeight() {
+        return height;
     }
 
     @Override
