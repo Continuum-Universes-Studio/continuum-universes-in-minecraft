@@ -7,6 +7,7 @@ import net.continuumuniverses.inventory.ModCreativeTabs;
 import net.continuumuniverses.item.ModItems;
 import net.continuumuniverses.recipes.ModRecipes;
 import net.continuumuniverses.screen.ModMenuTypes;
+import net.continuumuniverses.world.gen.ModFoliagePlacers;
 import net.continuumuniverses.world.poi.ModPOIs;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -43,6 +44,7 @@ public class ContinuumUniverses {
 		ModPOIs.POIS.register(modEventBus);
 		//ModDimensionTypes.DIMENSION_TYPE.register(modEventBus);
 		ModCreativeTabs.TABS.register(modEventBus);
+		ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
 
 		modEventBus.addListener(this::commonSetup);
 	}

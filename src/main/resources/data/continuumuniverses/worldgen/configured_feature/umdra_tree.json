@@ -42,7 +42,7 @@
       "height_rand_b": 1
     },
     "foliage_placer": {
-      "type": "minecraft:mushroom_foliage_placer",
+      "type": "continuumuniverses:umdra_mushroom_foliage_placer",
       "radius": 4,
       "offset": 0,
       "height": 3
