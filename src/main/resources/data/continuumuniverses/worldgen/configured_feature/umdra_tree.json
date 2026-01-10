@@ -37,15 +37,15 @@
     },
     "trunk_placer": {
       "type": "minecraft:straight_trunk_placer",
-      "base_height": 4,
-      "height_rand_a": 1,
+      "base_height": 7,
+      "height_rand_a": 3,
       "height_rand_b": 1
     },
     "foliage_placer": {
-      "type": "minecraft:blob_foliage_placer",
+      "type": "continuumuniverses:umdra_mushroom_foliage_placer",
       "radius": 4,
       "offset": 0,
-      "height": 2
+      "height": 3
     },
     "decorators": []
   }
