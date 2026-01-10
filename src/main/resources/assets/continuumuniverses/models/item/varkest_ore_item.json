@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "continuumuniverses:item/varkest_ore_item"
+    "layer0": "continuumuniverses:item/raw_varkest"
   }
 }

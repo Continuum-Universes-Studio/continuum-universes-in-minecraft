@@ -84,12 +84,15 @@ public class ModCreativeTabs {
 
         /* BUILDING BLOCKS */
         else if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ModBlocks.VARKEST_BLOCK.get());
+            event.accept(ModBlocks.AETHYRIL_ORE.get());
+            event.accept(ModBlocks.AETHYRIL_BLOCK.get());
             event.accept(ModBlocks.LARZIKEST_ORE.get());
             event.accept(ModBlocks.LARZIKEST_BLOCK.get());
             event.accept(ModBlocks.KORMIKEST_ORE.get());
             event.accept(ModBlocks.LETHURKEST_ORE.get());
             event.accept(ModBlocks.LETHURKEST_BLOCK.get());
+            event.accept(ModBlocks.VARKEST_ORE.get());
+            event.accept(ModBlocks.VARKEST_BLOCK.get());
 
             event.accept(ModBlocks.UVLA_LOG.get());
             event.accept(ModBlocks.UVLA_WOOD.get());
@@ -104,6 +107,9 @@ public class ModCreativeTabs {
             event.accept(ModBlocks.UVLA_TRAPDOOR.get());
             event.accept(ModBlocks.UVLA_PRESSURE_PLATE.get());
             event.accept(ModBlocks.UVLA_BUTTON.get());
+            event.accept(ModBlocks.UMDRA_PLANKS.get());
+            event.accept(ModBlocks.UMDRA_WOOD.get());
+            event.accept(ModBlocks.UMDRA_LOG.get());
         }
 
         /* NATURAL BLOCKS */
