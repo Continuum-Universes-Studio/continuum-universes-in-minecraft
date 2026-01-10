@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.MeshData;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Axis;
+import net.continuumuniverses.ContinuumUniverses;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -52,10 +53,11 @@ public final class UvlaSkyRenderer implements AutoCloseable {
     private static final Matrix4f IDENTITY_UV = new Matrix4f().identity();
 
     private static final float MOON_SCALE = 30.0F;
+    private static final float MOON_HEIGHT = 100.0F;
     private static final float SUN_SCALE = 45.0F;
-    private static final float SUN_HEIGHT = 220.0F;
+    private static final float SUN_HEIGHT = 140.0F;
     private static final ResourceLocation SUN_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath("minecraft", "textures/environment/sun.png");
+            ResourceLocation.fromNamespaceAndPath(ContinuumUniverses.MODID, "textures/sky/uvla/sun/sun.png");
 
     private final TextureManager textureManager;
     private final GpuBuffer quadBuffer;
@@ -108,9 +110,7 @@ public final class UvlaSkyRenderer implements AutoCloseable {
        ========================================================== */
 
     private void renderUvlaMoons(Matrix4fStack modelView, ClientLevel level, float partialTick, Matrix4f rotOnly) {
-        for (UvlaMoon moon : UvlaMoons.ALL.stream()
-                .sorted(Comparator.comparing(UvlaMoon::distance).reversed())
-                .toList()) {
+        for (UvlaMoon moon : UvlaMoons.ALL) {
             float angleDeg = getMoonOrbitAngle(level, partialTick, moon);
             int phaseIndex = getMoonPhase(level, partialTick, moon);
             renderSingleMoon(modelView, moon, angleDeg, phaseIndex, rotOnly);
