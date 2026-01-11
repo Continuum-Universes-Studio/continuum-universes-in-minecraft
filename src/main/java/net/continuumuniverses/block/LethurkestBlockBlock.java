@@ -12,6 +12,7 @@ public class LethurkestBlockBlock extends Block {
 				.strength(5f, 6f)
 				.requiresCorrectToolForDrops()
 				.lightLevel(state -> 15)
+				.isRedstoneConductor((state, level, pos) -> true)
 
 		);
 	}
