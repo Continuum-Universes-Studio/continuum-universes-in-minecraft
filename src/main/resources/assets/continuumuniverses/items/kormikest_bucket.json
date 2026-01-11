@@ -1,7 +1,7 @@
 {
   "model": {
     "type": "neoforge:fluid_container",
-    "fluid": "continuumuniverses:kormikest_source",
+    "fluid": "continuumuniverses:kormikest_fluid",
     "textures": {
       "base": "item/bucket",
       "fluid": "neoforge:item/mask/bucket_fluid",

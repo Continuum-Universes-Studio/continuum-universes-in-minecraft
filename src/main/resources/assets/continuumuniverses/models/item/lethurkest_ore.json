@@ -1,5 +1,5 @@
 {
-  "parent": "continuumuniverses:block/lethurkest_ore_block",
+  "parent": "continuumuniverses:block/lethurkest_ore",
   "display": {
     "thirdperson": {
       "rotation": [
