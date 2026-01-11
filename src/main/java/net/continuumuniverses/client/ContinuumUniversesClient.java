@@ -1,6 +1,7 @@
 package net.continuumuniverses.client;
 
 import net.continuumuniverses.ContinuumUniverses;
+import net.continuumuniverses.renderer.ModModelLoaders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -11,6 +12,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 
 /**
@@ -42,5 +44,10 @@ public class ContinuumUniversesClient {
                 net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(ContinuumUniverses.MODID, "uvla"),
                 new net.continuumuniverses.world.dimensions.uvla.UvlaDimensionEffects()
         );
+    }
+
+    @SubscribeEvent
+    public static void registerModelLoaders(ModelEvent.RegisterLoaders event) {
+        ModModelLoaders.register(event);
     }
 }
