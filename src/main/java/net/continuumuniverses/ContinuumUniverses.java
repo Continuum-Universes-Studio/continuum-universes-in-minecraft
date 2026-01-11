@@ -6,6 +6,7 @@ import net.continuumuniverses.fluid.ModFluids;
 import net.continuumuniverses.inventory.ModCreativeTabs;
 import net.continuumuniverses.item.ModItems;
 import net.continuumuniverses.recipes.ModRecipes;
+import net.continuumuniverses.renderer.ModModelLoaders;
 import net.continuumuniverses.screen.ModMenuTypes;
 import net.continuumuniverses.world.gen.ModFoliagePlacers;
 import net.continuumuniverses.world.poi.ModPOIs;
@@ -45,7 +46,7 @@ public class ContinuumUniverses {
 		//ModDimensionTypes.DIMENSION_TYPE.register(modEventBus);
 		ModCreativeTabs.TABS.register(modEventBus);
 		ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
-
+		ModModelLoaders.EMISSIVE_LOADER.register(modEventBus);
 		modEventBus.addListener(this::commonSetup);
 	}
 
