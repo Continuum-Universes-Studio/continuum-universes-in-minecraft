@@ -2,25 +2,32 @@ package net.continuumuniverses.renderer;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import net.minecraft.resources.ResourceLocation;
+import com.google.gson.JsonParseException;
+import net.minecraft.client.renderer.block.model.BlockModel;
+import net.minecraft.util.GsonHelper;
+import net.neoforged.neoforge.client.model.UnbakedModelLoader;
 
-public class EmissiveModelLoader implements IGeometryLoader<EmissiveModelGeometry> {
+public class EmissiveModelLoader implements UnbakedModelLoader<BlockModel> {
 
     @Override
-    public EmissiveModelGeometry read(
+    public BlockModel read(
             JsonObject json,
             JsonDeserializationContext context
     ) {
-        JsonObject textures = json.getAsJsonObject("textures");
+        JsonObject textures = GsonHelper.getAsJsonObject(json, "textures", null);
+        if (textures == null) {
+            throw new JsonParseException("Expected emissive model to define textures.");
+        }
 
-        ResourceLocation base =
-                new ResourceLocation(textures.get("all").getAsString());
+        if (!textures.has("all")) {
+            throw new JsonParseException("Expected emissive model to define textures.all.");
+        }
 
-        ResourceLocation emissive =
-                textures.has("emissive")
-                        ? new ResourceLocation(textures.get("emissive").getAsString())
-                        : null;
+        GsonHelper.getAsString(textures, "all");
+        if (textures.has("emissive")) {
+            GsonHelper.getAsString(textures, "emissive");
+        }
 
-        return new EmissiveModelGeometry(base, emissive);
+        return context.deserialize(json, BlockModel.class);
     }
 }
