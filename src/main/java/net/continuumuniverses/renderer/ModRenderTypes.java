@@ -7,7 +7,8 @@ public final class ModRenderTypes {
 
     private ModRenderTypes() {}
 
-    public static RenderType emissive(ResourceLocation texture) {
-        return RenderType.entityTranslucentEmissive(texture);
+    public static RenderType emissive(ResourceLocation atlas) {
+        return RenderType.eyes(atlas);
     }
+
 }

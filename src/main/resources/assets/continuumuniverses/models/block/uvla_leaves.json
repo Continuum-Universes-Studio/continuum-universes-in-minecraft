@@ -5,5 +5,6 @@
     "all": "continuumuniverses:block/uvla_leaves",
     "emissive": "continuumuniverses:block/uvla_leaves_emissive",
     "particle": "continuumuniverses:block/uvla_leaves"
-  }
+  },
+  "render_type": "cutout"
 }

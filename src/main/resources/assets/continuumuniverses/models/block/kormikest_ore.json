@@ -2,7 +2,7 @@
   "loader": "continuumuniverses:emissive",
   "parent": "block/cube_all",
   "textures": {
-    "base": "continuumuniverses:block/kormikest_ore",
+    "all": "continuumuniverses:block/kormikest_ore",
     "emissive": "continuumuniverses:block/kormikest_ore_emissive",
     "particle": "continuumuniverses:block/kormikest_ore"
   },

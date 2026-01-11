@@ -1,3 +1,4 @@
+
 package net.continuumuniverses.renderer;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -59,32 +60,30 @@ public class EmissiveModelGeometry implements ExtendedUnbakedGeometry {
 
         QuadCollection.Builder builder = new QuadCollection.Builder();
 
-        // Base quads (normal rendering)
-        for (BakedQuad quad : baseQuads.getQuads(null)) {
-            builder.addUnculledFace(quad);
-        }
-        for (Direction dir : Direction.values()) {
-            for (BakedQuad quad : baseQuads.getQuads(dir)) {
-                builder.addCulledFace(dir, quad);
-            }
-        }
-
         // Emissive sprite
         TextureAtlasSprite emissiveSprite = baker.sprites().get(emissiveMaterial, debugName);
 
-        // Unculled quads (side == null)
+        // Unculled quads
         for (BakedQuad quad : baseQuads.getQuads(null)) {
+            // 1) base
+            builder.addUnculledFace(quad);
+
+            // 2) emissive overlay
             builder.addUnculledFace(
-                    QuadUtils.retextureEmissive(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT, 0.5f)
+                    QuadUtils.retextureEmissive(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT)
             );
         }
 
-        // Culled face quads
+        // Culled quads
         for (Direction dir : Direction.values()) {
             for (BakedQuad quad : baseQuads.getQuads(dir)) {
+                // 1) base
+                builder.addCulledFace(dir, quad);
+
+                // 2) emissive overlay
                 builder.addCulledFace(
                         dir,
-                        QuadUtils.retextureEmissive(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT, 0.5f)
+                        QuadUtils.retextureEmissive(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT)
                 );
             }
         }

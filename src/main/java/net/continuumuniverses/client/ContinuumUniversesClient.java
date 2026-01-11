@@ -20,6 +20,8 @@ import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.IdentityHashMap;
 import java.util.Map;
 
 /**
@@ -60,18 +62,34 @@ public class ContinuumUniversesClient {
 
     @SubscribeEvent
     public static void onModifyBakingResult(ModelEvent.ModifyBakingResult event) {
-        Map<BlockState, BlockStateModel> models = event.getBakingResult().blockStateModels();
+        Map<BlockState, BlockStateModel> models =
+                event.getBakingResult().blockStateModels();
+
+        IdentityHashMap<BlockStateModel, BlockStateModel> wrapped = new IdentityHashMap<>();
+
         for (Map.Entry<BlockState, BlockStateModel> entry : models.entrySet()) {
-            BlockStateModel model = entry.getValue();
-            if (EmissiveBakedModel.hasEmissiveQuads(model)) {
-                entry.setValue(new EmissiveBakedModel(model));
+            BlockStateModel original = entry.getValue();
+
+            if (!EmissiveBakedModel.hasEmissiveQuads(original)) {
+                continue;
             }
+
+            BlockStateModel replacement = wrapped.computeIfAbsent(
+                    original,
+                    EmissiveBakedModel::new
+            );
+
+            entry.setValue(replacement);
         }
 
-        Map<ResourceLocation, ItemModel> itemModels = event.getBakingResult().itemStackModels();
+        // Items are fine as-is
+        Map<ResourceLocation, ItemModel> itemModels =
+                event.getBakingResult().itemStackModels();
+
         for (Map.Entry<ResourceLocation, ItemModel> entry : itemModels.entrySet()) {
-            ItemModel model = entry.getValue();
-            entry.setValue(EmissiveItemModel.wrapIfEmissive(model));
+            entry.setValue(EmissiveItemModel.wrapIfEmissive(entry.getValue()));
         }
     }
+
+
 }
