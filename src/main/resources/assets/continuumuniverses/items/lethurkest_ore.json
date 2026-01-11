@@ -1,6 +1,6 @@
 {
   "model": {
-    "type": "model",
-    "model": "continuumuniverses:item/lethurkest_ore_block"
+    "type": "minecraft:model",
+    "model": "continuumuniverses:item/lethurkest_ore"
   }
 }
