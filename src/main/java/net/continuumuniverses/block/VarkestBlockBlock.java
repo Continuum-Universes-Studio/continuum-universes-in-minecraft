@@ -9,7 +9,7 @@ public class VarkestBlockBlock extends Block {
 	public VarkestBlockBlock(BlockBehaviour.Properties properties) {
 		super(properties
 				.sound(SoundType.METAL)
-				.strength(5f, 6f)
+				.strength(16f, 1600f)
 				.requiresCorrectToolForDrops()
 				.lightLevel(state -> 15)
 
