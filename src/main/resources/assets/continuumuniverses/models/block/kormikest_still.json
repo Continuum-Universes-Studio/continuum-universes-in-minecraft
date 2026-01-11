@@ -1,8 +1,0 @@
-{
-  "parent": "block/liquid",
-  "textures": {
-    "particle": "continuumuniverses:block/kormikest_still",
-    "still": "continuumuniverses:block/kormikest_still",
-    "flowing": "continuumuniverses:block/kormikest_flow"
-  }
-}
