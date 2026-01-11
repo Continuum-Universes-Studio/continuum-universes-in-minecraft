@@ -1,9 +1,11 @@
 package net.continuumuniverses.client;
 
 import net.continuumuniverses.ContinuumUniverses;
+import net.continuumuniverses.renderer.EmissiveBakedModel;
 import net.continuumuniverses.renderer.ModModelLoaders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -14,6 +16,7 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import java.util.Map;
 
 /**
  * Client entry point for the Continuum Universes mod.
@@ -49,5 +52,16 @@ public class ContinuumUniversesClient {
     @SubscribeEvent
     public static void registerModelLoaders(ModelEvent.RegisterLoaders event) {
         ModModelLoaders.register(event);
+    }
+
+    @SubscribeEvent
+    public static void onModifyBakingResult(ModelEvent.ModifyBakingResult event) {
+        Map<ResourceLocation, BlockStateModel> models = event.getBakingResult().blockStateModels();
+        for (Map.Entry<ResourceLocation, BlockStateModel> entry : models.entrySet()) {
+            BlockStateModel model = entry.getValue();
+            if (EmissiveBakedModel.hasEmissiveQuads(model)) {
+                entry.setValue(new EmissiveBakedModel(model));
+            }
+        }
     }
 }
