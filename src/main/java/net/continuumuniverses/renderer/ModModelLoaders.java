@@ -7,8 +7,7 @@ import net.neoforged.neoforge.client.event.ModelEvent;
 public class ModModelLoaders {
 
     public static final ResourceLocation EMISSIVE_LOADER =
-            new ResourceLocation(ContinuumUniverses.MODID,
-                    "emissive");
+            new ResourceLocation(ContinuumUniverses.MODID,"emissive");
 
     public static void register(ModelEvent.RegisterGeometryLoaders event) {
         event.register(EMISSIVE_LOADER, EmissiveModelLoader::new);
