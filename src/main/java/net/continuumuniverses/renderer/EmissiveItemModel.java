@@ -12,15 +12,12 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
 public final class EmissiveItemModel implements ItemModel {
     private static final String EMISSIVE_SUFFIX = "_emissive";
     @Nullable
