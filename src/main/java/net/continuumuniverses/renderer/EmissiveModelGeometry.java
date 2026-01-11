@@ -59,6 +59,16 @@ public class EmissiveModelGeometry implements ExtendedUnbakedGeometry {
 
         QuadCollection.Builder builder = new QuadCollection.Builder();
 
+        // Base quads (normal rendering)
+        for (BakedQuad quad : baseQuads.getQuads(null)) {
+            builder.addUnculledFace(quad);
+        }
+        for (Direction dir : Direction.values()) {
+            for (BakedQuad quad : baseQuads.getQuads(dir)) {
+                builder.addCulledFace(dir, quad);
+            }
+        }
+
         // Emissive sprite
         TextureAtlasSprite emissiveSprite = baker.sprites().get(emissiveMaterial, debugName);
 
