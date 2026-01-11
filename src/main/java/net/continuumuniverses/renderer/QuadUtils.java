@@ -1,6 +1,10 @@
 package net.continuumuniverses.renderer;
 
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuadUtils {
 
@@ -12,7 +16,7 @@ public class QuadUtils {
         List<BakedQuad> result = new ArrayList<>();
 
         for (BakedQuad quad : original) {
-            int[] data = quad.getVertices().clone();
+            int[] data = quad.vertices().clone();
 
             // Lightmap coords live at index 6 in the vertex format
             for (int i = 0; i < 4; i++) {
@@ -22,14 +26,15 @@ public class QuadUtils {
 
             result.add(new BakedQuad(
                     data,
-                    quad.getTintIndex(),
-                    quad.getDirection(),
+                    quad.tintIndex(),
+                    quad.direction(),
                     sprite,
-                    quad.isShade()
+                    quad.shade(),
+                    quad.lightEmission(),
+                    quad.hasAmbientOcclusion()
             ));
         }
 
         return result;
     }
 }
-
