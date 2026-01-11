@@ -1,4 +1,6 @@
 {
-  "type": "model",
-  "model": "continuumuniverses:item/larzikest_ore"
+  "model": {
+    "type": "minecraft:model",
+    "model": "continuumuniverses:item/larzikest_ore"
+  }
 }

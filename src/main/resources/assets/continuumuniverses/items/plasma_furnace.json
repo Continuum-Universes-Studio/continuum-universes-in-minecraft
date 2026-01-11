@@ -1,3 +1,6 @@
 {
-  "parent": "continuumuniverses:block/plasma_furnace"
+  "model": {
+    "type": "minecraft:model",
+    "model": "continuumuniverses:item/plasma_furnace"
+  }
 }
