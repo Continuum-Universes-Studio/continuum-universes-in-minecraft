@@ -37,6 +37,39 @@ public class EmissiveModelGeometry implements ExtendedUnbakedGeometry {
             ModelDebugName debugName,
             ContextMap additionalProperties
     ) {
-        return QuadCollection.EMPTY;
+        if (emissiveTexture == null) {
+            return QuadCollection.EMPTY;
+        }
+
+        // Bake the base block model
+        BlockStateModel baseModel = baker.bake(debugName, state);
+
+        QuadCollection.Builder builder = new QuadCollection.Builder();
+
+        // Emissive sprite
+        TextureAtlasSprite emissiveSprite = baker
+                .getModelManager()
+                .getAtlas(TextureAtlas.LOCATION_BLOCKS)
+                .getSprite(emissiveTexture);
+
+        // Unculled quads (side == null)
+        for (BakedQuad quad : baseModel.getQuads(null)) {
+            builder.addUnculledFace(
+                    QuadUtils.retexture(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT)
+            );
+        }
+
+        // Culled face quads
+        for (Direction dir : Direction.values()) {
+            for (BakedQuad quad : baseModel.getQuads(dir)) {
+                builder.addCulledFace(
+                        dir,
+                        QuadUtils.retexture(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT)
+                );
+            }
+        }
+
+        return builder.build();
     }
+
 }

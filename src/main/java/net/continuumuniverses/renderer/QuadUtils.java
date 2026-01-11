@@ -37,4 +37,27 @@ public class QuadUtils {
 
         return result;
     }
+    public static BakedQuad retexture(
+            BakedQuad quad,
+            TextureAtlasSprite sprite,
+            int light
+    ) {
+        int[] data = quad.vertices().clone();
+
+        for (int i = 0; i < 4; i++) {
+            int lightIndex = 8 * i + 6;
+            data[lightIndex] = light;
+        }
+
+        return new BakedQuad(
+                data,
+                quad.tintIndex(),
+                quad.direction(),
+                sprite,
+                quad.shade(),
+                quad.lightEmission(),
+                quad.hasAmbientOcclusion()
+        );
+    }
+
 }
