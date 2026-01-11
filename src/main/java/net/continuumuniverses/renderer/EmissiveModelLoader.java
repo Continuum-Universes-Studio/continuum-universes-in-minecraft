@@ -3,37 +3,44 @@ package net.continuumuniverses.renderer;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.minecraft.client.renderer.block.model.BlockModel;
-import net.minecraft.util.GsonHelper;
+import net.continuumuniverses.ContinuumUniverses;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.client.RenderTypeGroup;
+import net.neoforged.neoforge.client.model.StandardModelParameters;
 import net.neoforged.neoforge.client.model.UnbakedModelLoader;
 
-public class EmissiveModelLoader implements UnbakedModelLoader<BlockModel> {
+public final class EmissiveModelLoader implements UnbakedModelLoader<EmissiveUnbakedModel> {
 
     @Override
-    public BlockModel read(
-            JsonObject json,
-            JsonDeserializationContext context
-    ) {
-        JsonObject textures = GsonHelper.getAsJsonObject(json, "textures", null);
-        if (textures == null) {
-            throw new JsonParseException("Expected emissive model to define textures.");
-        }
+    public EmissiveUnbakedModel read(JsonObject json, JsonDeserializationContext context) throws JsonParseException {
+        StandardModelParameters params = StandardModelParameters.parse(json, context);
 
-        if (textures.has("emissive")) {
-            GsonHelper.getAsString(textures, "emissive");
-        }
+        ResourceLocation base = requireModel(json, "base");
+        ResourceLocation emissive = requireModel(json, "emissive");
 
-        BlockModel model = context.deserialize(json, BlockModel.class);
-        return new BlockModel(
-                new EmissiveModelGeometry(model.geometry()),
-                model.guiLight(),
-                model.ambientOcclusion(),
-                model.transforms(),
-                model.textureSlots(),
-                model.parent(),
-                model.rootTransform(),
-                model.renderTypeGroup(),
-                model.partVisibility()
+        // Force CUTOUT render type (model-wide)
+        RenderTypeGroup forcedCutout = new RenderTypeGroup(ChunkSectionLayer.CUTOUT, RenderType.cutout());
+
+        StandardModelParameters forcedParams = new StandardModelParameters(
+                params.parent(),
+                params.textures(),
+                params.itemTransforms(),
+                params.ambientOcclusion(),
+                params.guiLight(),
+                params.rootTransform(),
+                forcedCutout,
+                params.partVisibility()
         );
+
+        // ✅ Your EmissiveUnbakedModel expects (params, geometry, baseRL, emissiveRL)
+        EmissiveUnbakedGeometry geometry = new EmissiveUnbakedGeometry(base, emissive);
+        return new EmissiveUnbakedModel(forcedParams, geometry, base, emissive);
+    }
+
+    private static ResourceLocation requireModel(JsonObject json, String key) {
+        if (!json.has(key)) throw new JsonParseException("Missing required key '" + key + "'");
+        return ResourceLocation.parse(json.get(key).getAsString());
     }
 }

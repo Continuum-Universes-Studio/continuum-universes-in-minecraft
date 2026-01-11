@@ -6,6 +6,7 @@ import net.continuumuniverses.fluid.ModFluids;
 import net.continuumuniverses.inventory.ModCreativeTabs;
 import net.continuumuniverses.item.ModItems;
 import net.continuumuniverses.recipes.ModRecipes;
+import net.continuumuniverses.renderer.ClientModelLoaders;
 import net.continuumuniverses.screen.ModMenuTypes;
 import net.continuumuniverses.world.gen.ModFoliagePlacers;
 import net.continuumuniverses.world.poi.ModPOIs;
@@ -46,6 +47,7 @@ public class ContinuumUniverses {
 		ModCreativeTabs.TABS.register(modEventBus);
 		ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
 		modEventBus.addListener(this::commonSetup);
+
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {

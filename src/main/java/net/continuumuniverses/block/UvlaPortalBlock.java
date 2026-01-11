@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
@@ -48,7 +49,7 @@ public class UvlaPortalBlock extends Block implements Portal {
 	public UvlaPortalBlock(BlockBehaviour.Properties properties) {
 		super(properties
 				.noOcclusion()
-				.noCollision()              // ✅ lets you walk into it
+				.noCollision()
 				.randomTicks()
 				.pushReaction(PushReaction.BLOCK)
 				.strength(-1.0F)
@@ -57,11 +58,9 @@ public class UvlaPortalBlock extends Block implements Portal {
 				.noLootTable()
 		);
 
-		// ✅ default blockstate must include AXIS or setValue() will crash
 		this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.X));
 	}
 
-	// ✅ Make the AXIS property actually exist on the blockstate
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(AXIS);
@@ -77,7 +76,7 @@ public class UvlaPortalBlock extends Block implements Portal {
 	}
 
     /* ------------------------------------------------------------
-       Block survival logic (your existing method is fine)
+       Block survival logic
      ------------------------------------------------------------ */
 
 	@Override
@@ -109,8 +108,7 @@ public class UvlaPortalBlock extends Block implements Portal {
 	}
 
     /* ------------------------------------------------------------
-       THIS is what makes stepping into the portal start the teleport
-       (1.21.10 signature!)
+       Entering portal
      ------------------------------------------------------------ */
 
 	@Override
@@ -123,7 +121,6 @@ public class UvlaPortalBlock extends Block implements Portal {
 			boolean intersects
 	) {
 		if (!level.isClientSide() && intersects) {
-			// ✅ Tell Minecraft "this entity is inside THIS portal block"
 			entity.setAsInsidePortal(this, pos);
 		}
 	}
@@ -142,21 +139,32 @@ public class UvlaPortalBlock extends Block implements Portal {
 		if (targetLevel == null) return null;
 
 		WorldBorder border = targetLevel.getWorldBorder();
+
 		double scale = DimensionType.getTeleportationScale(sourceLevel.dimensionType(), targetLevel.dimensionType());
 
-		BlockPos scaledPos = border.clampToBounds(entity.getX() * scale, entity.getY(), entity.getZ() * scale);
+		BlockPos clamped = border.clampToBounds(
+				entity.getX() * scale,
+				entity.getY(),
+				entity.getZ() * scale
+		);
 
-		BlockUtil.FoundRectangle portalRect =
-				BlockUtil.getLargestRectangleAround(
-						scaledPos,
-						Direction.Axis.Y,
-						21,
-						Direction.Axis.X,
-						21,
-						p -> targetLevel.getBlockState(p).getBlock() == this
-				);
+		BlockPos scaledPos = clamped;
 
-		Vec3 exitPos = Vec3.atBottomCenterOf(portalRect.minCorner);
+
+
+		// 1) Try to find an existing portal nearby in the target dimension
+		BlockUtil.FoundRectangle found = findPortalRectangleNear(targetLevel, scaledPos);
+		BlockPos exitBlockPos;
+
+		if (found != null) {
+			exitBlockPos = found.minCorner;
+		} else {
+			// 2) No portal found: create a safe platform + spawn a portal at a safe Y
+			exitBlockPos = ensurePlatformAndPortal(targetLevel, scaledPos, Direction.Axis.X);
+		}
+
+		// Put the entity in the center and slightly above ground
+		Vec3 exitPos = Vec3.atBottomCenterOf(exitBlockPos).add(0, 0.1, 0);
 
 		return new TeleportTransition(
 				targetLevel,
@@ -170,11 +178,141 @@ public class UvlaPortalBlock extends Block implements Portal {
 
 	@Override
 	public int getPortalTransitionTime(ServerLevel level, Entity entity) {
-		return 80; // like vanilla-ish; 0 can behave oddly depending on portal logic
+		return 80;
 	}
 
 	@Override
 	public Transition getLocalTransition() {
 		return Transition.NONE;
 	}
+
+    /* ------------------------------------------------------------
+       Helpers
+     ------------------------------------------------------------ */
+
+	@Nullable
+	private BlockUtil.FoundRectangle findPortalRectangleNear(ServerLevel level, BlockPos near) {
+		// Search within a small radius for any portal block and then compute its rectangle
+		int radius = 64;
+
+		BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+		for (int dx = -radius; dx <= radius; dx++) {
+			for (int dz = -radius; dz <= radius; dz++) {
+				int x = near.getX() + dx;
+				int z = near.getZ() + dz;
+
+				// Find surface-ish Y for scanning
+				int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+				cursor.set(x, y, z);
+
+				// Scan downward a bit to catch portals in caves/ledges
+				for (int dy = 0; dy < 32; dy++) {
+					BlockPos p = cursor.below(dy);
+					if (level.getBlockState(p).is(this)) {
+						// We found one portal block; compute the portal rectangle around it
+						return BlockUtil.getLargestRectangleAround(
+								p,
+								Direction.Axis.Y,
+								21,
+								Direction.Axis.X,
+								21,
+								bp -> level.getBlockState(bp).is(this)
+						);
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private BlockPos ensurePlatformAndPortal(ServerLevel level, BlockPos desired, Direction.Axis axis) {
+		int x = desired.getX();
+		int z = desired.getZ();
+
+		// Choose a safe Y using heightmap, with a floor clamp
+		int surfaceY = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+		int minY = level.getMinY() + 8;
+		int y = Math.max(surfaceY, minY);
+
+		// Center of platform
+		BlockPos center = new BlockPos(x, y, z);
+
+		// Build platform one block below standing position
+		buildPlatform(level, center.below());
+
+		// Clear headroom
+		clearAir(level, center);
+		clearAir(level, center.above());
+
+		// Build a portal on the platform (you can swap frame material)
+		BlockPos portalBaseInside = center.offset(0, 1, 0);
+		buildPortalFrameAndFill(level, portalBaseInside, axis);
+
+		// Return the portal “standing” location (inside portal)
+		return portalBaseInside;
+	}
+
+	private void buildPlatform(ServerLevel level, BlockPos center) {
+		BlockState floor = ModBlocks.LETHURKEST_BLOCK.get().defaultBlockState();
+
+		for (int dx = -2; dx <= 2; dx++) {
+			for (int dz = -2; dz <= 2; dz++) {
+				level.setBlock(center.offset(dx, 0, dz), floor, 3);
+			}
+		}
+
+		// Optional rails (prevents instant walking off)
+		// If you want rails also made of Lethurkest, use the same block.
+		// If LETHURKEST_BLOCK isn't a wall-type, a full block "rail" is fine.
+		BlockState rail = floor;
+
+		for (int dx = -2; dx <= 2; dx++) {
+			for (int dz = -2; dz <= 2; dz++) {
+				if (Math.abs(dx) == 2 || Math.abs(dz) == 2) {
+					level.setBlock(center.offset(dx, 1, dz), rail, 3);
+				}
+			}
+		}
+	}
+
+	private void clearAir(ServerLevel level, BlockPos pos) {
+		if (!level.getBlockState(pos).isAir()) {
+			level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+		}
+	}
+
+	private void buildPortalFrameAndFill(ServerLevel level, BlockPos insideBottomLeft, Direction.Axis axis) {
+		// Nether-like 4x5 outer, 2x3 inner.
+		// insideBottomLeft is the bottom-left block INSIDE the portal interior.
+
+		BlockState frame = ModBlocks.LETHURKEST_BLOCK.get().defaultBlockState();
+		BlockState portal = this.defaultBlockState().setValue(AXIS, axis);
+
+		// Build frame around interior
+		// Frame corners relative to interior: x:-1..2 and y:0..4 in local “width” axis
+		for (int dy = 0; dy < 5; dy++) {
+			setLocal(level, insideBottomLeft, axis, -1, dy, frame);
+			setLocal(level, insideBottomLeft, axis,  2, dy, frame);
+		}
+		for (int dx = -1; dx <= 2; dx++) {
+			setLocal(level, insideBottomLeft, axis, dx, 0, frame);
+			setLocal(level, insideBottomLeft, axis, dx, 4, frame);
+		}
+
+		// Fill portal interior 2x3
+		for (int dx = 0; dx <= 1; dx++) {
+			for (int dy = 1; dy <= 3; dy++) {
+				setLocal(level, insideBottomLeft, axis, dx, dy, portal);
+			}
+		}
+	}
+
+	private void setLocal(ServerLevel level, BlockPos originInside, Direction.Axis axis, int dx, int dy, BlockState state) {
+		// If axis is X, portal plane is Z (like vanilla nether). If axis is Z, portal plane is X.
+		BlockPos p = (axis == Direction.Axis.X)
+				? originInside.offset(dx, dy, 0)
+				: originInside.offset(0, dy, dx);
+		level.setBlock(p, state, 3);
+	}
+
 }

@@ -7,6 +7,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
@@ -27,5 +28,19 @@ public class ContinuumUniversesClient {
         // Some client setup code
         ContinuumUniverses.LOGGER.info("HELLO FROM CLIENT SETUP");
         ContinuumUniverses.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+    }
+
+
+    /**
+     * Register custom dimension effects for the uvla dimension.
+     *
+     * @param event the event used to register dimension special effects
+     */
+    @SubscribeEvent
+    public static void registerUvlaDimensionEffects(RegisterDimensionSpecialEffectsEvent event) {
+        event.register(
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(ContinuumUniverses.MODID, "uvla"),
+                new net.continuumuniverses.world.dimensions.uvla.UvlaDimensionEffects()
+        );
     }
 }

@@ -1,9 +1,11 @@
 {
+  "parent": "minecraft:block/cube_all",
+
   "loader": "continuumuniverses:emissive",
-  "parent": "block/cube_all",
+  "base": "continuumuniverses:block/lethurkest_ore_base",
+  "emissive": "continuumuniverses:block/lethurkest_ore_emissive",
+  "emissivity": 15,
   "textures": {
-    "all": "continuumuniverses:block/lethurkest_ore",
-    "emissive": "continuumuniverses:block/lethurkest_ore_emissive",
     "particle": "continuumuniverses:block/lethurkest_ore"
   }
 }

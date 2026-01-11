@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class ModPOIs {
-
+    private static boolean PORTAL_POI_STATES_REGISTERED = false;
     public static final DeferredRegister<PoiType> POIS =
             DeferredRegister.create(Registries.POINT_OF_INTEREST_TYPE, ContinuumUniverses.MODID);
 
@@ -31,6 +31,8 @@ public final class ModPOIs {
             );
 
     public static void registerPortalPoiStates() {
+        if (PORTAL_POI_STATES_REGISTERED) return;
+        PORTAL_POI_STATES_REGISTERED = true;
         if (!ModBlocks.UVLA_PORTAL.isBound() || !UVLA_PORTAL_POI.isBound()) {
             ContinuumUniverses.LOGGER.warn("Skipping UVLA portal POI registration because registries are not ready.");
             return;

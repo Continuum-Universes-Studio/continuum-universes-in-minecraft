@@ -1,41 +1,15 @@
 {
   "textures": {
-    "particle": "continuumuniverses:block/kormikest_fluid",
-    "portal": "continuumuniverses:block/kormikest_fluid"
+    "particle": "block/nether_portal",
+    "portal": "block/nether_portal"
   },
   "elements": [
-    {
-      "from": [
-        0,
-        0,
-        6
-      ],
-      "to": [
-        16,
-        16,
-        10
-      ],
+    {   "from": [ 0, 0, 6 ],
+      "to": [ 16, 16, 10 ],
       "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#portal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#portal"
-        }
+        "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal" },
+        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal" }
       }
     }
-  ],
-  "render_type": "translucent"
+  ]
 }

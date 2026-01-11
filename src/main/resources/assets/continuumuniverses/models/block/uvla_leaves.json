@@ -1,10 +1,11 @@
 {
-  "loader": "continuumuniverses:emissive",
   "parent": "block/cube_all",
+
+  "loader": "continuumuniverses:emissive",
+  "base": "continuumuniverses:block/uvla_leaves_base",
+  "emissive": "continuumuniverses:block/uvla_leaves_emissive",
+  "emissivity": 7,
   "textures": {
-    "all": "continuumuniverses:block/uvla_leaves",
-    "emissive": "continuumuniverses:block/uvla_leaves_emissive",
     "particle": "continuumuniverses:block/uvla_leaves"
-  },
-  "render_type": "cutout"
+  }
 }

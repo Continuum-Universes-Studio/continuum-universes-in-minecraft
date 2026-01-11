@@ -12,7 +12,6 @@ public class LethurkestBlockBlock extends Block {
 				.sound(SoundType.METAL)
 				.strength(50.0F, 3200.0F)
 				.requiresCorrectToolForDrops()
-				.lightLevel(state -> 15)
 				.noTerrainParticles()
 		);
 	}

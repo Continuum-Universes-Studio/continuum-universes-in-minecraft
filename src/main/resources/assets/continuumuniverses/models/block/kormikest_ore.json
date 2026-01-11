@@ -1,10 +1,11 @@
 {
+  "parent": "minecraft:block/cube_all",
+
   "loader": "continuumuniverses:emissive",
-  "parent": "block/cube_all",
+  "base": "continuumuniverses:block/kormikest_ore_base",
+  "emissive": "continuumuniverses:block/kormikest_ore_emissive",
+  "emissivity": 15,
   "textures": {
-    "all": "continuumuniverses:block/kormikest_ore",
-    "emissive": "continuumuniverses:block/kormikest_ore_emissive",
     "particle": "continuumuniverses:block/kormikest_ore"
-  },
-  "render_type": "cutout"
+  }
 }

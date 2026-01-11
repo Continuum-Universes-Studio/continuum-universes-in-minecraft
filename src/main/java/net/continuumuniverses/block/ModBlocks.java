@@ -59,9 +59,8 @@ public class ModBlocks {
     public static final DeferredBlock<DropExperienceBlock> KORMIKEST_ORE =
             registerOreBlock(
                     "kormikest_ore",
-                    3.5f,
-                    UniformInt.of(4, 8),
-                    12
+                    0.5f,
+                    UniformInt.of(4, 8)
             );
     public static final DeferredBlock<DropExperienceBlock> LETHURKEST_ORE =
             registerOreBlock(
@@ -72,7 +71,7 @@ public class ModBlocks {
     public static final DeferredBlock<DropExperienceBlock> STARSTEEL_ORE =
             registerOreBlock(
                     "starsteel_ore",
-                    10.0f,
+                    7.0f,
                     UniformInt.of(4, 7)
             );
 
