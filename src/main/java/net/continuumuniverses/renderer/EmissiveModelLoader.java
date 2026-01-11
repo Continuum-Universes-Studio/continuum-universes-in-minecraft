@@ -19,15 +19,21 @@ public class EmissiveModelLoader implements UnbakedModelLoader<BlockModel> {
             throw new JsonParseException("Expected emissive model to define textures.");
         }
 
-        if (!textures.has("all")) {
-            throw new JsonParseException("Expected emissive model to define textures.all.");
-        }
-
-        GsonHelper.getAsString(textures, "all");
         if (textures.has("emissive")) {
             GsonHelper.getAsString(textures, "emissive");
         }
 
-        return context.deserialize(json, BlockModel.class);
+        BlockModel model = context.deserialize(json, BlockModel.class);
+        return new BlockModel(
+                new EmissiveModelGeometry(model.geometry()),
+                model.guiLight(),
+                model.ambientOcclusion(),
+                model.transforms(),
+                model.textureSlots(),
+                model.parent(),
+                model.rootTransform(),
+                model.renderTypeGroup(),
+                model.partVisibility()
+        );
     }
 }
