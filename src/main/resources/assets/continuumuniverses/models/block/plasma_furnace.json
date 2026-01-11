@@ -1,10 +1,11 @@
 {
-  "parent": "minecraft:block/orientable",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
-    "front":  "continuumuniverses:block/plasma_furnace_front",
+    "front": "continuumuniverses:block/plasma_furnace_front",
+    "side": "continuumuniverses:block/plasma_furnace_side",
     "back": "continuumuniverses:block/plasma_furnace_back",
-    "side":   "continuumuniverses:block/plasma_furnace_side",
-    "top":    "continuumuniverses:block/plasma_furnace_top",
-    "bottom": "continuumuniverses:block/plasma_furnace_bottom"
+    "top": "continuumuniverses:block/plasma_furnace_top",
+    "bottom": "continuumuniverses:block/plasma_furnace_bottom",
+    "particle": "continuumuniverses:block/plasma_furnace_side"
   }
 }

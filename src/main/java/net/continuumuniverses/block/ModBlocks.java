@@ -60,7 +60,8 @@ public class ModBlocks {
             registerOreBlock(
                     "kormikest_ore",
                     3.5f,
-                    UniformInt.of(4, 8)
+                    UniformInt.of(4, 8),
+                    12
             );
     public static final DeferredBlock<DropExperienceBlock> LETHURKEST_ORE =
             registerOreBlock(
@@ -309,6 +310,27 @@ public class ModBlocks {
                         xp,
                         props
                                 .strength(hardness)
+                                .requiresCorrectToolForDrops()
+                )
+        );
+
+        registerBlockItem(name, block);
+        return block;
+    }
+
+    private static DeferredBlock<DropExperienceBlock> registerOreBlock(
+            String name,
+            float hardness,
+            UniformInt xp,
+            int lightLevel
+    ) {
+        DeferredBlock<DropExperienceBlock> block = BLOCKS.registerBlock(
+                name,
+                props -> new DropExperienceBlock(
+                        xp,
+                        props
+                                .strength(hardness)
+                                .lightLevel(state -> lightLevel)
                                 .requiresCorrectToolForDrops()
                 )
         );
