@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "continuumuniverses:item/starsteel_ore_item"
+    "layer0": "continuumuniverses:item/raw_starsteel"
   }
 }

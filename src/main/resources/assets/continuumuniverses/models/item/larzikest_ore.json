@@ -1,5 +1,5 @@
 {
-  "parent": "continuumuniverses:block/larzikest_ore_block",
+  "parent": "continuumuniverses:block/larzikest_ore",
   "display": {
     "thirdperson": {
       "rotation": [

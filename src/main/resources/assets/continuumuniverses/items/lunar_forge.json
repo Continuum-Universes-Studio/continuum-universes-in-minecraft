@@ -1,3 +1,4 @@
 {
-  "parent": "continuumuniverses:block/lunar_forge"
+  "type": "minecraft:model",
+  "model": "continuumuniverses:block/lunar_forge"
 }
