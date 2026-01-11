@@ -1,8 +1,9 @@
 {
+  "loader": "continuumuniverses:emissive",
   "parent": "block/cube_all",
   "textures": {
     "all": "continuumuniverses:block/lethurkest_ore",
+    "emissive": "continuumuniverses:block/lethurkest_ore_emissive",
     "particle": "continuumuniverses:block/lethurkest_ore"
-  },
-  "render_type": "solid"
+  }
 }
