@@ -2,6 +2,7 @@
   "parent": "minecraft:block/orientable",
   "textures": {
     "front":  "continuumuniverses:block/plasma_furnace_front",
+    "back": "continuumuniverses:block/plasma_furnace_back",
     "side":   "continuumuniverses:block/plasma_furnace_side",
     "top":    "continuumuniverses:block/plasma_furnace_top",
     "bottom": "continuumuniverses:block/plasma_furnace_bottom"

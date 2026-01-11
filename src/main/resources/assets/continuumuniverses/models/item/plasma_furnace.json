@@ -1,5 +1,5 @@
 {
-  "parent": "continuumuniverses:block/aethyril_ore",
+  "parent": "continuumuniverses:block/plasma_furnace",
   "display": {
     "thirdperson": {
       "rotation": [
