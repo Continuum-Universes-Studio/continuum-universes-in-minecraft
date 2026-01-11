@@ -62,6 +62,37 @@ public class QuadUtils {
         );
     }
 
+    public static BakedQuad retextureEmissive(
+            BakedQuad quad,
+            TextureAtlasSprite sprite,
+            int light,
+            float alpha
+    ) {
+        int[] data = quad.vertices().clone();
+        remapUvs(data, quad.sprite(), sprite);
+
+        int alphaByte = Math.max(0, Math.min(255, Math.round(alpha * 255f)));
+
+        for (int i = 0; i < 4; i++) {
+            int baseIndex = 8 * i;
+            int colorIndex = baseIndex + 3;
+            int color = data[colorIndex];
+            int rgb = color & 0x00FFFFFF;
+            data[colorIndex] = (alphaByte << 24) | rgb;
+            data[baseIndex + 6] = light;
+        }
+
+        return new BakedQuad(
+                data,
+                quad.tintIndex(),
+                quad.direction(),
+                sprite,
+                quad.shade(),
+                quad.lightEmission(),
+                quad.hasAmbientOcclusion()
+        );
+    }
+
     private static void remapUvs(int[] data, TextureAtlasSprite oldSprite, TextureAtlasSprite newSprite) {
         float oldU0 = oldSprite.getU0();
         float oldV0 = oldSprite.getV0();

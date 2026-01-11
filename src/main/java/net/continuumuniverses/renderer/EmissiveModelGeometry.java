@@ -75,7 +75,7 @@ public class EmissiveModelGeometry implements ExtendedUnbakedGeometry {
         // Unculled quads (side == null)
         for (BakedQuad quad : baseQuads.getQuads(null)) {
             builder.addUnculledFace(
-                    QuadUtils.retexture(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT)
+                    QuadUtils.retextureEmissive(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT, 0.5f)
             );
         }
 
@@ -84,7 +84,7 @@ public class EmissiveModelGeometry implements ExtendedUnbakedGeometry {
             for (BakedQuad quad : baseQuads.getQuads(dir)) {
                 builder.addCulledFace(
                         dir,
-                        QuadUtils.retexture(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT)
+                        QuadUtils.retextureEmissive(quad, emissiveSprite, EmissiveBakedModel.FULL_BRIGHT, 0.5f)
                 );
             }
         }
