@@ -1,3 +1,6 @@
 {
-  "parent": "continuumuniverses:block/kormikest_ore_block"
+  "model": {
+    "type": "minecraft:model",
+    "model": "continuumuniverses:item/kormikest_ore"
+  }
 }

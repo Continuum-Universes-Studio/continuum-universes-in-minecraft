@@ -1,5 +1,5 @@
 {
-  "parent": "continuumuniverses:block/kormikest_ore_block",
+  "parent": "continuumuniverses:block/kormikest_ore",
   "display": {
     "thirdperson": {
       "rotation": [
