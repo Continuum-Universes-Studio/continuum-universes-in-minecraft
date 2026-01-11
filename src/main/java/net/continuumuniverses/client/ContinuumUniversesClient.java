@@ -16,6 +16,8 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
+import net.minecraft.world.level.block.state.BlockState;
 import java.util.Map;
 
 /**
@@ -56,8 +58,8 @@ public class ContinuumUniversesClient {
 
     @SubscribeEvent
     public static void onModifyBakingResult(ModelEvent.ModifyBakingResult event) {
-        Map<ResourceLocation, BlockStateModel> models = event.getBakingResult().blockStateModels();
-        for (Map.Entry<ResourceLocation, BlockStateModel> entry : models.entrySet()) {
+        Map<BlockState, BlockStateModel> models = event.getBakingResult().blockStateModels();
+        for (Map.Entry<BlockState, BlockStateModel> entry : models.entrySet()) {
             BlockStateModel model = entry.getValue();
             if (EmissiveBakedModel.hasEmissiveQuads(model)) {
                 entry.setValue(new EmissiveBakedModel(model));
