@@ -6,6 +6,7 @@ import net.continuumuniverses.renderer.EmissiveItemModel;
 import net.continuumuniverses.renderer.ModModelLoaders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
