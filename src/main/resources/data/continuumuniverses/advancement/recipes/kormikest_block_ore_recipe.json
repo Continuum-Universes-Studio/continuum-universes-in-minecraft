@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "continuumuniverses:larzikest_shovel_recipe"
+        "recipe": "continuumuniverses:kormikest_block_ore_recipe"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": ["continuumuniverses:larzikest_ingot"]
+            "items": ["continuumuniverses:kormikest_block"]
           }
         ]
       },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "continuumuniverses:larzikest_shovel_recipe"
+      "continuumuniverses:kormikest_block_ore_recipe"
     ]
   }
 }

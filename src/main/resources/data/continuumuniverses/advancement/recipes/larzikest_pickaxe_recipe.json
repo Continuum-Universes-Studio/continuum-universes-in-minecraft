@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "continuumuniverses:larzikest_ingot"
-            ]
+            "items": ["continuumuniverses:larzikest_ingot"]
           }
         ]
       },
