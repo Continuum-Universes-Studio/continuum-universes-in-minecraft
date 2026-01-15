@@ -16,10 +16,10 @@ public class ModRecipes {
             DeferredRegister.create(Registries.RECIPE_SERIALIZER, ContinuumUniverses.MODID);
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<PlasmaRecipe>> PLASMA =
-            TYPES.register("plasma", () -> new RecipeType<>() {});
+            TYPES.register("plasma_smelting", () -> new RecipeType<>() {});
 
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<PlasmaRecipe>> PLASMA_SERIALIZER =
-            SERIALIZERS.register("plasma",
+            SERIALIZERS.register("plasma_smelting",
                     () -> new AbstractCookingRecipe.Serializer<>(PlasmaRecipe::new, 40)
             );
 
