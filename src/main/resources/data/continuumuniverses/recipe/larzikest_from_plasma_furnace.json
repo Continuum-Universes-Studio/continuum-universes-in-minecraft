@@ -1,9 +1,11 @@
 {
-  "type": "continuumuniverses:plasma",
+  "type": "continuumuniverses:plasma_smelting",
   "ingredient": {
     "item": "continuumuniverses:raw_larzikest"
   },
-  "result": "continuumuniverses:larzikest_ingot",
+  "result": {
+    "id": "continuumuniverses:larzikest_ingot"
+  },
   "experience": 1.5,
   "cookingtime": 200
 }

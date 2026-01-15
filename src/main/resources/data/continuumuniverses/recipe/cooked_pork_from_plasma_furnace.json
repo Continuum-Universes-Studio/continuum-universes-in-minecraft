@@ -1,0 +1,12 @@
+{
+  "type": "continuumuniverses:plasma_smelting",
+  "category": "food",
+  "cookingtime": 1,
+  "experience": 3.0,
+  "ingredient": {
+    "item": "minecraft:porkchop"
+  },
+  "result": {
+    "id": "minecraft:cooked_pork"
+  }
+}

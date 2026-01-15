@@ -1,9 +1,11 @@
 {
-  "type": "continuumuniverses:plasma",
+  "type": "continuumuniverses:plasma_smelting",
   "ingredient": {
     "item": "continuumuniverses:raw_starsteel"
   },
-  "result": "continuumuniverses:starsteel_ingot",
+  "result": {
+    "id": "continuumuniverses:starsteel_ingot"
+  },
   "experience": 1.5,
   "cookingtime": 200
 }

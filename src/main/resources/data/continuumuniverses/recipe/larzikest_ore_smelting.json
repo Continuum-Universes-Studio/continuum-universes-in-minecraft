@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": { "item": "continuumuniverses:raw_larzikest" },
+  "result": { "id": "continuumuniverses:larzikest_ingot", "count": 1 },
+  "experience": 0.7,
+  "cookingtime": 12000
+}
