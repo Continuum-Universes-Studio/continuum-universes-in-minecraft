@@ -40,6 +40,13 @@ public class ContinuumUniversesClient {
         ContinuumUniverses.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
 
+    @SubscribeEvent
+    public static void registerMenuScreens(RegisterMenuScreensEvent event) {
+        event.register(ModMenuTypes.PLASMA_FURNACE_MENU.get(), PlasmaFurnaceScreen::new);
+        event.register(ModMenuTypes.STELLAR_FORGE_MENU.get(), StellarForgeScreen::new);
+        event.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
+    }
+
 
 
 
