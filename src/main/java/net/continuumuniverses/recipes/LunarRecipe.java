@@ -33,7 +33,7 @@ public class LunarRecipe implements Recipe<CraftingInput> {
 
     @Override
     public boolean isSpecial() {
-        return true; // keep it out of vanilla recipe book
+        return false;
     }
 
     @Override
