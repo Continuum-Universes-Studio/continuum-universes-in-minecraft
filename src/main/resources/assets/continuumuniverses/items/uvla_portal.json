@@ -1,3 +1,6 @@
 {
-  "parent": "continuumuniverses:block/uvla_portal"
+  "model": {
+    "type": "minecraft:model",
+    "model": "continuumuniverses:block/uvla_portal"
+  }
 }
