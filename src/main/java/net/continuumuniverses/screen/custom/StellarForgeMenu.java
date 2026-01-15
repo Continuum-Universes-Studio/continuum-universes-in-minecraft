@@ -36,7 +36,7 @@ public class StellarForgeMenu extends AbstractContainerMenu {
     public StellarForgeMenu(
             int containerId,
             Inventory playerInventory,
-            FriendlyByteBuf buf
+            @Nullable FriendlyByteBuf buf
     ) {
         this(
                 containerId,
@@ -172,9 +172,9 @@ public class StellarForgeMenu extends AbstractContainerMenu {
 
     private static @Nullable StellarForgeBlockEntity resolveBlockEntity(
             Inventory playerInventory,
-            FriendlyByteBuf buf
+            @Nullable FriendlyByteBuf buf
     ) {
-        if (buf.readableBytes() < Long.BYTES) {
+        if (buf == null || buf.readableBytes() < Long.BYTES) {
             return null;
         }
         BlockPos pos = buf.readBlockPos();

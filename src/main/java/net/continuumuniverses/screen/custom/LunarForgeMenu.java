@@ -36,7 +36,7 @@ public class LunarForgeMenu extends AbstractContainerMenu {
     public LunarForgeMenu(
             int containerId,
             Inventory playerInventory,
-            FriendlyByteBuf buf
+            @Nullable FriendlyByteBuf buf
     ) {
         this(
                 containerId,
@@ -172,9 +172,9 @@ public class LunarForgeMenu extends AbstractContainerMenu {
 
     private static @Nullable LunarForgeBlockEntity resolveBlockEntity(
             Inventory playerInventory,
-            FriendlyByteBuf buf
+            @Nullable FriendlyByteBuf buf
     ) {
-        if (buf.readableBytes() < Long.BYTES) {
+        if (buf == null || buf.readableBytes() < Long.BYTES) {
             return null;
         }
         BlockPos pos = buf.readBlockPos();

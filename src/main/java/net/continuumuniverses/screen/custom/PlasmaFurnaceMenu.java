@@ -38,7 +38,7 @@ public class PlasmaFurnaceMenu extends AbstractFurnaceMenu {
     public PlasmaFurnaceMenu(
             int containerId,
             Inventory playerInventory,
-            FriendlyByteBuf buf
+            @Nullable FriendlyByteBuf buf
     ) {
         this(
                 containerId,
@@ -49,9 +49,9 @@ public class PlasmaFurnaceMenu extends AbstractFurnaceMenu {
 
     private static @Nullable PlasmaFurnaceBlockEntity resolveBlockEntity(
             Inventory playerInventory,
-            FriendlyByteBuf buf
+            @Nullable FriendlyByteBuf buf
     ) {
-        if (buf.readableBytes() < Long.BYTES) {
+        if (buf == null || buf.readableBytes() < Long.BYTES) {
             return null;
         }
         BlockPos pos = buf.readBlockPos();
