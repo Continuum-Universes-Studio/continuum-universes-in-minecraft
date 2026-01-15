@@ -29,8 +29,7 @@ public class PlasmaRecipe extends AbstractCookingRecipe {
     public RecipeBookCategory recipeBookCategory() {
         return switch (this.category()) {
             case BLOCKS -> RecipeBookCategories.FURNACE_BLOCKS;
-            case FOOD -> RecipeBookCategories.FURNACE_FOOD;
-            case MISC -> RecipeBookCategories.FURNACE_MISC;
+            case FOOD, MISC -> RecipeBookCategories.FURNACE_MISC;
         };
     }
 
