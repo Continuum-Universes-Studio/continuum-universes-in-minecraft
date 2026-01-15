@@ -1,4 +1,6 @@
 {
-  "type": "minecraft:model",
-  "model": "continuumuniverses:block/stellar_forge"
+  "model": {
+    "type": "minecraft:model",
+    "model": "continuumuniverses:block/stellar_forge"
+  }
 }
