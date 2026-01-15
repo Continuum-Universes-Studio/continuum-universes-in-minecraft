@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "experience": 0.7,
+  "cookingtime": 10000,
+  "ingredient": "continuumuniverses:raw_larzikest",
+  "result": "continuumuniverses:larzikest_ingot"
+}
