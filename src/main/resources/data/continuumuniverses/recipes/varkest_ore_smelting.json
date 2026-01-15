@@ -5,6 +5,7 @@
   "cookingtime": 20000,
   "ingredient": "continuumuniverses:raw_varkest",
   "result": {
-    "id": "continuumuniverses:varkest_ingot"
+    "id": "continuumuniverses:varkest_ingot",
+    "count": 1
   }
 }
