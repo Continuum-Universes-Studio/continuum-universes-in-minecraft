@@ -3,8 +3,8 @@
   "category": "misc",
   "experience": 3,
   "cookingtime": 20000,
-  "ingredient": "continuumuniverses:raw_varkest",
-  "result": {
-    "id": "continuumuniverses:varkest_ingot"
-  }
+  "ingredient": {
+    "item": "continuumuniverses:raw_varkest"
+  },
+  "result": "continuumuniverses:varkest_ingot"
 }
