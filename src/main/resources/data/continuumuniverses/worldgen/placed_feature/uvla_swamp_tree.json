@@ -24,7 +24,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "minecraft:oak_sapling",
+          "Name": "continuumuniverses:uvla_swamp_sapling",
           "Properties": {
             "stage": "0"
           }

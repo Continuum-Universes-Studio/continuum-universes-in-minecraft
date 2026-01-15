@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/nether_portal",
+  "textures": {
+    "portal": "continuumuniverses:block/uvla_portal"
+  }
+}

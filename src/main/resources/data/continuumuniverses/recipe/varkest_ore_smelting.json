@@ -5,7 +5,7 @@
   "cookingtime": 20000,
   "ingredient": [
     {
-      "item": "continuumuniverses:varkest_ore_item"
+      "item": "continuumuniverses:raw_varkest"
     }
   ],
   "result": {

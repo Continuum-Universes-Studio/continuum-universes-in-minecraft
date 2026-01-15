@@ -1,5 +1,5 @@
 {
-  "parent": "block/stairs",
+  "parent": "minecraft:block/stairs",
   "textures": {
     "particle": "continuumuniverses:block/uvla_planks",
     "bottom": "continuumuniverses:block/uvla_planks",

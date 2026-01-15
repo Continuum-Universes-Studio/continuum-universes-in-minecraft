@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "continuumuniverses:block/kormikest_block",
-    "particle": "continuumuniverses:block/kormikest_block"
-  },
-  "render_type": "solid"
-}

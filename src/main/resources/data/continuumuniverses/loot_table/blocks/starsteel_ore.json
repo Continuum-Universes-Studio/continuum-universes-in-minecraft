@@ -40,7 +40,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "minecraft:raw_starsteel"
+              "name": "continuumuniverses:raw_starsteel"
             }
           ]
         }
@@ -48,5 +48,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "continuumuniverses:blocks/starsteel_ore"
+  "random_sequence": "continuumuniverses:block/starsteel_ore"
 }

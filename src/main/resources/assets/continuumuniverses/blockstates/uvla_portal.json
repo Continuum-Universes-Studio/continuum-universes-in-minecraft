@@ -1,10 +1,6 @@
 {
   "variants": {
-    "horizontal_axis=z": {
-      "model": "continuumuniverses:block/uvla_portal_ew"
-    },
-    "horizontal_axis=x": {
-      "model": "continuumuniverses:block/uvla_portal_ns"
-    }
+    "axis=x": { "model": "continuumuniverses:block/uvla_portal" },
+    "axis=z": { "model": "continuumuniverses:block/uvla_portal", "y": 90 }
   }
 }

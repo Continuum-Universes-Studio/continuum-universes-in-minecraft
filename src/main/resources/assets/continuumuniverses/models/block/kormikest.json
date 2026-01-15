@@ -3,6 +3,6 @@
   "textures": {
     "particle": "continuumuniverses:block/kormikest_still",
     "still": "continuumuniverses:block/kormikest_still",
-    "flow": "continuumuniverses:block/kormikest_flow"
+    "flow": "continuumuniverses:block/kormikest_flowing"
   }
 }

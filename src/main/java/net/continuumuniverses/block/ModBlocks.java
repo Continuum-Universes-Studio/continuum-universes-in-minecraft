@@ -214,7 +214,26 @@ public class ModBlocks {
                             .instabreak()
                             .sound(SoundType.GRASS)
             );
-
+    public static final DeferredHolder<Block, SaplingBlock> UVLA_SWAMP_SAPLIING =
+            registerBlock(
+                    "uvla_swamp_sapling",
+                    props -> new SaplingBlock(UvlaTreeGrowers.UVLA_SWAMP, props),
+                    BlockBehaviour.Properties.of()
+                            .noCollision()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+            );
+    public static final DeferredHolder<Block, SaplingBlock> UVLA_QOEVIS_SAPLING =
+            registerBlock(
+                    "uvla_qoevis_baka_sapling",
+                    props -> new SaplingBlock(UvlaTreeGrowers.UVLA_QOEVIS, props),
+                    BlockBehaviour.Properties.of()
+                            .noCollision()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+            );
     public static final DeferredHolder<Block, UvlaSlabBlock> UVLA_SLAB =
             registerBlock(
                     "uvla_slab",

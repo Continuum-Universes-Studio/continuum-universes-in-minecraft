@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "continuumuniverses:larzikest"
+              "name": "continuumuniverses:raw_larzikest"
             },
             {
               "type": "minecraft:item",
@@ -57,5 +57,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "continuumuniverses:blocks/larzikest"
+  "random_sequence": "continuumuniverses:block/larzikest_ore"
 }

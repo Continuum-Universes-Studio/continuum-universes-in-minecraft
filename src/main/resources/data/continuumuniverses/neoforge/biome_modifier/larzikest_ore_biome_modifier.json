@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "#is_overworld",
+  "biomes": "#continuumuniverses:is_lethuria",
   "features": "continuumuniverses:larzikest_ore_deposit",
   "step": "underground_ores"
 }

@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
   "biomes": "#continuumuniverses:is_lethuria",
-  "features": "continuumuniverses:varkest_ore_deposit",
+  "features": "continuumuniverses:starsteel_ore_deposit",
   "step": "underground_ores"
 }

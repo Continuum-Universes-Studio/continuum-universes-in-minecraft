@@ -1,6 +1,3 @@
 {
-  "model": {
-    "type": "minecraft:model",
-    "model": "continuumuniverses:item/uvla_stairs"
-  }
+  "parent": "continuumuniverses:block/uvla_stairs"
 }

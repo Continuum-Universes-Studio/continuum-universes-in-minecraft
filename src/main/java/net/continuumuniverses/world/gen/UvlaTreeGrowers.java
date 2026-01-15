@@ -30,4 +30,8 @@ public final class UvlaTreeGrowers {
 
     public static final TreeGrower UMDRA =
             new TreeGrower("umdra", Optional.empty(), Optional.of(key("umdra_tree")), Optional.empty());
+    public static final TreeGrower UVLA_SWAMP =
+            new TreeGrower("uvla_swamp", Optional.empty(), Optional.of(key("uvla_swamp_tree")), Optional.empty());
+    public static final TreeGrower UVLA_QOEVIS =
+            new TreeGrower("uvla_qoevis_baka", Optional.empty(), Optional.of(key("uvla_qoevis_baka_tree")), Optional.empty());
 }
