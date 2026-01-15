@@ -1,6 +1,11 @@
 package net.continuumuniverses;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.continuumuniverses.screen.ModMenuTypes;
+import net.continuumuniverses.screen.custom.LunarForgeScreen;
+import net.continuumuniverses.screen.custom.PlasmaFurnaceScreen;
+import net.continuumuniverses.screen.custom.StellarForgeScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -28,6 +33,11 @@ public class ContinuumUniversesClient {
         // Some client setup code
         ContinuumUniverses.LOGGER.info("HELLO FROM CLIENT SETUP");
         ContinuumUniverses.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        event.enqueueWork(() -> {
+            MenuScreens.register(ModMenuTypes.PLASMA_FURNACE_MENU.get(), PlasmaFurnaceScreen::new);
+            MenuScreens.register(ModMenuTypes.STELLAR_FORGE_MENU.get(), StellarForgeScreen::new);
+            MenuScreens.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
+        });
     }
 
 
