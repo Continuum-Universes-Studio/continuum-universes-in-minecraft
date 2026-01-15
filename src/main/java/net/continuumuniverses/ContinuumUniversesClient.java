@@ -1,7 +1,6 @@
 package net.continuumuniverses;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.continuumuniverses.screen.ModMenuTypes;
 import net.continuumuniverses.screen.custom.LunarForgeScreen;
 import net.continuumuniverses.screen.custom.PlasmaFurnaceScreen;
@@ -12,6 +11,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -38,6 +38,13 @@ public class ContinuumUniversesClient {
             MenuScreens.register(ModMenuTypes.STELLAR_FORGE_MENU.get(), StellarForgeScreen::new);
             MenuScreens.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
         });
+    }
+
+    @SubscribeEvent
+    public static void registerMenuScreens(RegisterMenuScreensEvent event) {
+        event.register(ModMenuTypes.PLASMA_FURNACE_MENU.get(), PlasmaFurnaceScreen::new);
+        event.register(ModMenuTypes.STELLAR_FORGE_MENU.get(), StellarForgeScreen::new);
+        event.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
     }
 
 
