@@ -3,12 +3,21 @@ package net.continuumuniverses.screen.custom;
 import net.continuumuniverses.block.ModBlocks;
 import net.continuumuniverses.block.entity.LunarForgeBlockEntity;
 import net.continuumuniverses.screen.ModMenuTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.ResultContainer;
+import net.minecraft.world.inventory.ResultSlot;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import org.jetbrains.annotations.Nullable;
 
 public class LunarForgeMenu extends AbstractContainerMenu {
 
@@ -32,8 +41,7 @@ public class LunarForgeMenu extends AbstractContainerMenu {
         this(
                 containerId,
                 playerInventory,
-                (LunarForgeBlockEntity) playerInventory.player.level()
-                        .getBlockEntity(buf.readBlockPos())
+                resolveBlockEntity(playerInventory, buf)
         );
     }
 
@@ -43,16 +51,16 @@ public class LunarForgeMenu extends AbstractContainerMenu {
     public LunarForgeMenu(
             int containerId,
             Inventory playerInventory,
-            LunarForgeBlockEntity blockEntity
+            @Nullable LunarForgeBlockEntity blockEntity
     ) {
         super(ModMenuTypes.LUNAR_FORGE_MENU.get(), containerId);
 
-        this.blockEntity = blockEntity;
+        this.blockEntity = blockEntity != null ? blockEntity : new LunarForgeBlockEntity(BlockPos.ZERO, ModBlocks.LUNAR_FORGE.get().defaultBlockState());
         this.level = playerInventory.player.level();
-        this.access = ContainerLevelAccess.create(level, blockEntity.getBlockPos());
+        this.access = ContainerLevelAccess.create(level, this.blockEntity.getBlockPos());
 
-        this.craftingGrid = blockEntity.craftingGrid;
-        this.result = blockEntity.result;
+        this.craftingGrid = this.blockEntity.craftingGrid;
+        this.result = this.blockEntity.result;
 
         // Result slot
         this.addSlot(new ResultSlot(
@@ -160,5 +168,17 @@ public class LunarForgeMenu extends AbstractContainerMenu {
                     142
             ));
         }
+    }
+
+    private static @Nullable LunarForgeBlockEntity resolveBlockEntity(
+            Inventory playerInventory,
+            FriendlyByteBuf buf
+    ) {
+        if (buf.readableBytes() < Long.BYTES) {
+            return null;
+        }
+        BlockPos pos = buf.readBlockPos();
+        BlockEntity blockEntity = playerInventory.player.level().getBlockEntity(pos);
+        return blockEntity instanceof LunarForgeBlockEntity forge ? forge : null;
     }
 }
