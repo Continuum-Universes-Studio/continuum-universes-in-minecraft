@@ -43,6 +43,7 @@ public class ModCreativeTabs {
                                 output.accept(ModItems.LARZIKEST_INGOT.get());
                                 output.accept(ModItems.KORMIKEST_DUST.get());
                                 output.accept(ModItems.LETHURKEST_GEM.get());
+                                output.accept(ModItems.KORMIKEST_GELATIN.get());
 
                                 /* ---- Tools ---- */
                                 output.accept(ModItems.VARKEST_PICKAXE.get());
@@ -57,9 +58,18 @@ public class ModCreativeTabs {
                                 output.accept(ModItems.LARZIKEST_HOE.get());
                                 output.accept(ModItems.LARZIKEST_SWORD.get());
 
+                                output.accept(ModItems.STARSTEEL_PICKAXE.get());
+                                output.accept(ModItems.STARSTEEL_AXE.get());
+                                output.accept(ModItems.STARSTEEL_SHOVEL.get());
+                                output.accept(ModItems.STARSTEEL_HOE.get());
+                                output.accept(ModItems.STARSTEEL_SWORD.get());
+
                                 /* ---- Misc ---- */
                                 output.accept(ModFluids.KORMIKEST.bucket().get());
                                 output.accept(ModItems.UVLA_ITEM.get());
+                                output.accept(ModItems.RAW_LARZIKEST.get());
+                                output.accept(ModItems.RAW_VARKEST.get());
+                                output.accept(ModItems.RAW_STARSTEEL.get());
                             })
                             .build()
             );
