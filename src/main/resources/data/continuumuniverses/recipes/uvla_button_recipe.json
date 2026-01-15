@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "category": "redstone",
+  "ingredients": [
+    "continuumuniverses:uvla_planks"
+  ],
+  "result": {
+    "id": "continuumuniverses:uvla_button",
+    "count": 1
+  }
+}
