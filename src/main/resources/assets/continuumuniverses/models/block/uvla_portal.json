@@ -1,6 +1,23 @@
 {
-  "parent": "minecraft:block/nether_portal",
+  "ambientocclusion": false,
   "textures": {
+    "particle": "continuumuniverses:block/uvla_portal",
     "portal": "continuumuniverses:block/uvla_portal"
-  }
+  },
+  "elements": [
+    {
+      "from": [0, 0, 7],
+      "to": [16, 16, 9],
+      "faces": {
+        "north": {
+          "texture": "#portal",
+          "uv": [0, 0, 16, 16]
+        },
+        "south": {
+          "texture": "#portal",
+          "uv": [0, 0, 16, 16]
+        }
+      }
+    }
+  ]
 }

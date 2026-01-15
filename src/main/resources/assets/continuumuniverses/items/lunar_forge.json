@@ -1,4 +1,6 @@
 {
-  "type": "minecraft:model",
-  "model": "continuumuniverses:block/lunar_forge"
+  "model": {
+    "type": "minecraft:model",
+    "model": "continuumuniverses:block/lunar_forge"
+  }
 }
