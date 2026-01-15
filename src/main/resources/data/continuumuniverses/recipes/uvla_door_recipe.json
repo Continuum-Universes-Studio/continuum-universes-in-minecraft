@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_door",
+  "category": "redstone",
+  "pattern": [
+    "aa",
+    "aa",
+    "aa"
+  ],
+  "key": {
+    "a": "continuumuniverses:uvla_planks"
+  },
+  "result": {
+    "id": "continuumuniverses:uvla_door",
+    "count": 3
+  }
+}

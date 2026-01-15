@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_fence",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "aba"
+  ],
+  "key": {
+    "a": "continuumuniverses:uvla_planks",
+    "b": "minecraft:stick"
+  },
+  "result": {
+    "id": "continuumuniverses:uvla_fence",
+    "count": 3
+  }
+}
