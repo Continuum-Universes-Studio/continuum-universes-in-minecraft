@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": "continuumuniverses:lethurkest_m"
+            "items": ["continuumuniverses:lethurkest_m"]
           }
         ]
       },
