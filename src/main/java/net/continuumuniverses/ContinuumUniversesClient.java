@@ -1,12 +1,17 @@
 package net.continuumuniverses;
 
 import net.minecraft.client.Minecraft;
+import net.continuumuniverses.screen.ModMenuTypes;
+import net.continuumuniverses.screen.custom.LunarForgeScreen;
+import net.continuumuniverses.screen.custom.PlasmaFurnaceScreen;
+import net.continuumuniverses.screen.custom.StellarForgeScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -22,7 +27,6 @@ public class ContinuumUniversesClient {
         // Do not forget to add translations for your config options to the en_us.json file.
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
-
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
@@ -30,6 +34,12 @@ public class ContinuumUniversesClient {
         ContinuumUniverses.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
 
+    @SubscribeEvent
+    public static void registerMenuScreens(RegisterMenuScreensEvent event) {
+        event.register(ModMenuTypes.PLASMA_FURNACE_MENU.get(), PlasmaFurnaceScreen::new);
+        event.register(ModMenuTypes.STELLAR_FORGE_MENU.get(), StellarForgeScreen::new);
+        event.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
+    }
 
     /**
      * Register custom dimension effects for the uvla dimension.

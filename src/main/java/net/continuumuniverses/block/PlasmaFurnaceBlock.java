@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import net.continuumuniverses.block.entity.ModBlockEntities;
 import net.continuumuniverses.block.entity.PlasmaFurnaceBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -79,12 +78,11 @@ public class PlasmaFurnaceBlock extends AbstractFurnaceBlock {
     }
 
     @Override
-    public InteractionResult use(
+    public InteractionResult useWithoutItem(
             BlockState state,
             Level level,
             BlockPos pos,
             Player player,
-            InteractionHand hand,
             BlockHitResult hit
     ) {
         BlockEntity be = level.getBlockEntity(pos);
@@ -92,7 +90,7 @@ public class PlasmaFurnaceBlock extends AbstractFurnaceBlock {
             if (!level.isClientSide()) {
                 openContainer(level, pos, player);
             }
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }

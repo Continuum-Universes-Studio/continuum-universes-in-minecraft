@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "continuumuniverses:larzikest_block"
+  ],
+  "result": {
+    "id": "continuumuniverses:larzikest_ingot",
+    "count": 9
+  }
+}
