@@ -2,6 +2,7 @@
   "type": "minecraft:blasting",
   "category": "misc",
   "ingredient": {
+    "type": "minecraft:item",
     "item": "continuumuniverses:raw_starsteel"
   },
   "result": {

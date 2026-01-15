@@ -1,6 +1,7 @@
 {
   "type": "continuumuniverses:plasma_smelting",
   "ingredient": {
+    "type": "minecraft:item",
     "item": "continuumuniverses:raw_larzikest"
   },
   "result": {
