@@ -1,7 +1,11 @@
 package net.continuumuniverses.screen.custom;
 
 import net.continuumuniverses.ContinuumUniverses;
+import net.continuumuniverses.block.ModBlocks;
+import net.continuumuniverses.recipes.ModRecipeBookCategory;
 import net.minecraft.client.gui.screens.inventory.AbstractFurnaceScreen;
+import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
+import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -29,7 +33,13 @@ public class PlasmaFurnaceScreen extends AbstractFurnaceScreen<PlasmaFurnaceMenu
                 GUI_TEXTURE,
                 FIRE_BURN_SPRITE,
                 ARROW_TEXTURE,
-                List.of() // no tabs (yet)
+                List.of(
+                        new RecipeBookComponent.TabInfo(SearchRecipeBookCategory.FURNACE),
+                        new RecipeBookComponent.TabInfo(
+                                ModBlocks.PLASMA_FURNACE.get().asItem(),
+                                ModRecipeBookCategory.PLASMA_SMELTING
+                        )
+                )
         );
     }
     private PlasmaFurnaceMenu plasmaMenu() {
