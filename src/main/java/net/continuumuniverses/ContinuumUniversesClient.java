@@ -27,25 +27,20 @@ public class ContinuumUniversesClient {
         // Do not forget to add translations for your config options to the en_us.json file.
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
-
-    @SubscribeEvent
-    static void onClientSetup(FMLClientSetupEvent event) {
-        // Some client setup code
-        ContinuumUniverses.LOGGER.info("HELLO FROM CLIENT SETUP");
-        ContinuumUniverses.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
-        event.enqueueWork(() -> {
-            MenuScreens.register(ModMenuTypes.PLASMA_FURNACE_MENU.get(), PlasmaFurnaceScreen::new);
-            MenuScreens.register(ModMenuTypes.STELLAR_FORGE_MENU.get(), StellarForgeScreen::new);
-            MenuScreens.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
-        });
-    }
-
     @SubscribeEvent
     public static void registerMenuScreens(RegisterMenuScreensEvent event) {
         event.register(ModMenuTypes.PLASMA_FURNACE_MENU.get(), PlasmaFurnaceScreen::new);
         event.register(ModMenuTypes.STELLAR_FORGE_MENU.get(), StellarForgeScreen::new);
         event.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
     }
+    @SubscribeEvent
+    static void onClientSetup(FMLClientSetupEvent event) {
+        // Some client setup code
+        ContinuumUniverses.LOGGER.info("HELLO FROM CLIENT SETUP");
+        ContinuumUniverses.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+    }
+
+
 
 
     /**
