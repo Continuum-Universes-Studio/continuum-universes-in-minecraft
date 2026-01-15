@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "front": "continuumuniverses:block/lunar_forge_front",
+    "side": "continuumuniverses:block/lunar_forge_side",
+    "back": "continuumuniverses:block/lunar_forge_back",
+    "top": "continuumuniverses:block/lunar_forge_top",
+    "bottom": "continuumuniverses:block/lunar_forge_bottom",
+    "particle": "continuumuniverses:block/lunar_forge_side"
+  }
+}

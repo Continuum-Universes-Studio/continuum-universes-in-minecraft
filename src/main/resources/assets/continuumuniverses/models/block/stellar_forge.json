@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "front": "continuumuniverses:block/stellar_forge_front",
+    "side": "continuumuniverses:block/stellar_forge_side",
+    "back": "continuumuniverses:block/stellar_forge_back",
+    "top": "continuumuniverses:block/stellar_forge_top",
+    "bottom": "continuumuniverses:block/stellar_forge_bottom",
+    "particle": "continuumuniverses:block/stellar_forge_side"
+  }
+}
