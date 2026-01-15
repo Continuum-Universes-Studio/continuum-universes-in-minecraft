@@ -1,3 +1,6 @@
 {
-  "parent": "continuumuniverses:block/uvla_mangrove_sapling"
+  "model": {
+    "type": "minecraft:model",
+    "model": "continuumuniverses:item/uvla_mangrove_sapling"
+  }
 }
