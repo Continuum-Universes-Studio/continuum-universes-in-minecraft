@@ -33,6 +33,11 @@ public class ContinuumUniversesClient {
         // Some client setup code
         ContinuumUniverses.LOGGER.info("HELLO FROM CLIENT SETUP");
         ContinuumUniverses.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        event.enqueueWork(() -> {
+            MenuScreens.register(ModMenuTypes.PLASMA_FURNACE_MENU.get(), PlasmaFurnaceScreen::new);
+            MenuScreens.register(ModMenuTypes.STELLAR_FORGE_MENU.get(), StellarForgeScreen::new);
+            MenuScreens.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
+        });
     }
 
     @SubscribeEvent
