@@ -1,0 +1,10 @@
+{
+  "type": "continuumuniverses:plasma",
+  "ingredient": "continuumuniverses:raw_larzikest",
+  "result": {
+    "id": "continuumuniverses:larzikest_ingot",
+    "count": 1
+  },
+  "experience": 1.5,
+  "cookingtime": 200
+}

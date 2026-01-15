@@ -5,7 +5,8 @@
     "item": "continuumuniverses:raw_starsteel"
   },
   "result": {
-    "id": "continuumuniverses:starsteel_ingot"
+    "id": "continuumuniverses:starsteel_ingot",
+    "count": 1
   },
   "experience": 1.5,
   "cookingtime": 7000
