@@ -99,7 +99,7 @@ public final class UvlaLunarEventManager {
 
     private static KairaLunarEvent rollKairaEvent(ServerLevel level) {
         // Only allow special moons when Kaira is FULL
-        if (!isKairaFull(level)) return KairaLunarEvent.NONE;
+        if (!UvlaLunarPhaseHelper.isKairaFull(level)) return KairaLunarEvent.NONE;
 
         int roll = level.random.nextInt(100); // 0..99
 
@@ -107,15 +107,6 @@ public final class UvlaLunarEventManager {
         if (roll < BLOOD_CHANCE_PERCENT + BLUE_CHANCE_PERCENT) return KairaLunarEvent.BLUE;
 
         return KairaLunarEvent.NONE;
-    }
-
-    private static boolean isKairaFull(ServerLevel level) {
-        // Simple baseline: full when phase == 0 (or pick your own)
-        // Your moon phase logic can replace this easily.
-        float days = level.getDayTime() / 24000.0F;
-        float cycle = (days / UvlaMoons.KAIRA.orbitalPeriodDays()) % 1.0F;
-        int phase = (int) (cycle * UvlaMoons.KAIRA.phaseCount());
-        return phase == 0;
     }
 
     private static boolean isMoonsAligned(ServerLevel level) {
