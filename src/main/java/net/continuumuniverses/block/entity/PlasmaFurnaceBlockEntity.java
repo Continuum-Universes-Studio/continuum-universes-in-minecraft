@@ -37,6 +37,14 @@ public class PlasmaFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         return new PlasmaFurnaceMenu(containerId, inventory, this);
     }
 
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        if (slot == 1) {
+            return stack.is(ModItems.KORMIKEST_GELATIN.get()) || stack.is(ModItems.KORMIKEST_DUST.get());
+        }
+        return super.canPlaceItem(slot, stack);
+    }
+
 
     protected int getBurnDuration(ItemStack fuel) {
         if (fuel.is(ModItems.KORMIKEST_GELATIN.get())) return 30_000;
