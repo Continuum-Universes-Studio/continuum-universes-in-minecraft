@@ -1,7 +1,9 @@
 {
   "type": "continuumuniverses:plasma",
   "ingredient": "continuumuniverses:raw_varkest",
-  "result": "continuumuniverses:varkest_ingot",
+  "result": {
+    "id": "continuumuniverses:varkest_ingot"
+  },
   "experience": 1.5,
   "cookingtime": 200
 }

@@ -4,5 +4,7 @@
   "experience": 3,
   "cookingtime": 15000,
   "ingredient": "continuumuniverses:raw_varkest",
-  "result": "continuumuniverses:varkest_ingot"
+  "result": {
+    "id": "continuumuniverses:varkest_ingot"
+  }
 }

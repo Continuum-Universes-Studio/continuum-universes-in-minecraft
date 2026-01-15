@@ -2,7 +2,9 @@
   "type": "minecraft:blasting",
   "category": "misc",
   "ingredient": "continuumuniverses:raw_starsteel",
-  "result": "continuumuniverses:starsteel_ingot",
+  "result": {
+    "id": "continuumuniverses:starsteel_ingot"
+  },
   "experience": 1.5,
   "cookingtime": 4000
 }
