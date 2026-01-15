@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "continuumuniverses:raw_starsteel",
-  "result": {
-    "id": "continuumuniverses:starsteel_ingot"
+  "ingredient": {
+    "item": "continuumuniverses:raw_starsteel"
   },
+  "result": "continuumuniverses:starsteel_ingot",
   "experience": 1.5,
   "cookingtime": 7000
 }

@@ -3,8 +3,8 @@
   "category": "misc",
   "experience": 0.7,
   "cookingtime": 12000,
-  "ingredient": "continuumuniverses:raw_larzikest",
-  "result": {
-    "id": "continuumuniverses:larzikest_ingot"
-  }
+  "ingredient": {
+    "item": "continuumuniverses:raw_larzikest"
+  },
+  "result": "continuumuniverses:larzikest_ingot"
 }
