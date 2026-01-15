@@ -37,7 +37,7 @@ public class PlasmaFurnaceScreen extends AbstractFurnaceScreen<PlasmaFurnaceMenu
                         new RecipeBookComponent.TabInfo(SearchRecipeBookCategory.FURNACE),
                         new RecipeBookComponent.TabInfo(
                                 ModBlocks.PLASMA_FURNACE.get().asItem(),
-                                ModRecipeBookCategory.PLASMA_SMELTING
+                                ModRecipeBookCategory.PLASMA_SMELTING.get()
                         )
                 )
         );

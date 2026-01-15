@@ -1,21 +1,19 @@
 package net.continuumuniverses.recipes;
 
 import net.continuumuniverses.ContinuumUniverses;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.core.registries.Registries;
 
 public class ModRecipeBookCategory {
-    public static final RecipeBookCategory PLASMA_SMELTING = register("plasma_smelting");
-    public static final RecipeBookCategory STELLAR_FORGE = register("stellar_forge");
-    public static final RecipeBookCategory LUNAR_FORGE = register("lunar_forge");
+    public static final DeferredRegister<RecipeBookCategory> RECIPE_BOOK_CATEGORIES =
+            DeferredRegister.create(Registries.RECIPE_BOOK_CATEGORY, ContinuumUniverses.MODID);
 
-    private static RecipeBookCategory register(String name) {
-        return Registry.register(
-                BuiltInRegistries.RECIPE_BOOK_CATEGORY,
-                ResourceLocation.fromNamespaceAndPath(ContinuumUniverses.MODID, name),
-                new RecipeBookCategory()
-        );
-    }
+    public static final DeferredHolder<RecipeBookCategory, RecipeBookCategory> PLASMA_SMELTING =
+            RECIPE_BOOK_CATEGORIES.register("plasma_smelting", RecipeBookCategory::new);
+    public static final DeferredHolder<RecipeBookCategory, RecipeBookCategory> STELLAR_FORGE =
+            RECIPE_BOOK_CATEGORIES.register("stellar_forge", RecipeBookCategory::new);
+    public static final DeferredHolder<RecipeBookCategory, RecipeBookCategory> LUNAR_FORGE =
+            RECIPE_BOOK_CATEGORIES.register("lunar_forge", RecipeBookCategory::new);
 }

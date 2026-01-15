@@ -54,7 +54,7 @@ public class LunarRecipe implements Recipe<CraftingInput> {
 
     @Override
     public RecipeBookCategory recipeBookCategory() {
-        return ModRecipeBookCategory.LUNAR_FORGE;
+        return ModRecipeBookCategory.LUNAR_FORGE.get();
     }
     public ShapedRecipePattern pattern() {
         return pattern;
