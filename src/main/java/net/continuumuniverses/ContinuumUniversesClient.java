@@ -1,10 +1,14 @@
 package net.continuumuniverses;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.event.RegisterClientExtensionsEvent;
 import net.continuumuniverses.screen.ModMenuTypes;
 import net.continuumuniverses.screen.custom.LunarForgeScreen;
 import net.continuumuniverses.screen.custom.PlasmaFurnaceScreen;
 import net.continuumuniverses.screen.custom.StellarForgeScreen;
+import net.continuumuniverses.fluid.ModFluids;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -21,6 +25,13 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
 @EventBusSubscriber(modid = ContinuumUniverses.MODID, value = Dist.CLIENT)
 public class ContinuumUniversesClient {
+    private static final ResourceLocation KORMIKEST_STILL =
+            ResourceLocation.fromNamespaceAndPath(ContinuumUniverses.MODID, "block/kormikest_still");
+    private static final ResourceLocation KORMIKEST_FLOWING =
+            ResourceLocation.fromNamespaceAndPath(ContinuumUniverses.MODID, "block/kormikest_flowing");
+    private static final ResourceLocation KORMIKEST_OVERLAY =
+            ResourceLocation.fromNamespaceAndPath(ContinuumUniverses.MODID, "block/kormikest_flow");
+
     public ContinuumUniversesClient(ModContainer container) {
         // Allows NeoForge to create a config screen for this mod's configs.
         // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.
@@ -39,6 +50,26 @@ public class ContinuumUniversesClient {
         event.register(ModMenuTypes.PLASMA_FURNACE_MENU.get(), PlasmaFurnaceScreen::new);
         event.register(ModMenuTypes.STELLAR_FORGE_MENU.get(), StellarForgeScreen::new);
         event.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        event.registerFluidType(new IClientFluidTypeExtensions() {
+            @Override
+            public ResourceLocation getStillTexture() {
+                return KORMIKEST_STILL;
+            }
+
+            @Override
+            public ResourceLocation getFlowingTexture() {
+                return KORMIKEST_FLOWING;
+            }
+
+            @Override
+            public ResourceLocation getOverlayTexture() {
+                return KORMIKEST_OVERLAY;
+            }
+        }, ModFluids.KORMIKEST.type().get());
     }
 
 
