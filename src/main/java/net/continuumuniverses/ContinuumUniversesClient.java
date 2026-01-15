@@ -41,6 +41,7 @@ public class ContinuumUniversesClient {
         event.register(ModMenuTypes.LUNAR_FORGE_MENU.get(), LunarForgeScreen::new);
     }
 
+
     /**
      * Register custom dimension effects for the uvla dimension.
      *
