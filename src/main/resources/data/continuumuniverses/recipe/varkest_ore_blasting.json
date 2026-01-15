@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "varkest",
+  "ingredient": { "type": "minecraft:item", "item": "continuumuniverses:raw_varkest" },
+  "result": { "id": "continuumuniverses:varkest_ingot", "count": 1 },
+  "experience": 3.0,
+  "cookingtime": 15000
+}

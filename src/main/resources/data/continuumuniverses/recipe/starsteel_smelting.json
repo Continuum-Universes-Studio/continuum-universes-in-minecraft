@@ -1,6 +1,9 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "continuumuniverses:raw_starsteel",
+  "ingredient": {
+    "type": "minecraft:item",
+    "item": "continuumuniverses:raw_starsteel"
+  },
   "result": {
     "id": "continuumuniverses:starsteel_ingot",
     "count": 1

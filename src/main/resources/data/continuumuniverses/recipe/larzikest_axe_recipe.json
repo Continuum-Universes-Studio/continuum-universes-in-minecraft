@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "pattern": [
-    "aa",
-    "ab",
-    " b"
+    "aa ",
+    "ab ",
+    " b "
   ],
   "key": {
     "a": "continuumuniverses:larzikest_ingot",
