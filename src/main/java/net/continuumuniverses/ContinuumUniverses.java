@@ -5,6 +5,7 @@ import net.continuumuniverses.block.entity.ModBlockEntities;
 import net.continuumuniverses.fluid.ModFluids;
 import net.continuumuniverses.inventory.ModCreativeTabs;
 import net.continuumuniverses.item.ModItems;
+import net.continuumuniverses.recipes.ModRecipeBookCategory;
 import net.continuumuniverses.recipes.ModRecipes;
 import net.continuumuniverses.renderer.ClientModelLoaders;
 import net.continuumuniverses.screen.ModMenuTypes;
@@ -32,6 +33,7 @@ public class ContinuumUniverses {
 
 		ModRecipes.SERIALIZERS.register(modEventBus);
 		ModRecipes.TYPES.register(modEventBus);
+		ModRecipeBookCategory.RECIPE_BOOK_CATEGORIES.register(modEventBus);
 		ModBlocks.BLOCKS.register(modEventBus);
 		ModItems.ITEMS.register(modEventBus);
 		ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);

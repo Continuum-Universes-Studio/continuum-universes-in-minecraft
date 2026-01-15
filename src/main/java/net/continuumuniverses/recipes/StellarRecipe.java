@@ -53,7 +53,7 @@ public class StellarRecipe implements Recipe<CraftingInput> {
 
     @Override
     public RecipeBookCategory recipeBookCategory() {
-        return ModRecipeBookCategory.STELLAR_FORGE;
+        return ModRecipeBookCategory.STELLAR_FORGE.get();
     }
     public ShapedRecipePattern pattern() {
         return pattern;

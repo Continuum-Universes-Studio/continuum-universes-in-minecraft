@@ -27,7 +27,7 @@ public class PlasmaRecipe extends AbstractCookingRecipe {
 
     @Override
     public RecipeBookCategory recipeBookCategory() {
-        return ModRecipeBookCategory.PLASMA_SMELTING;
+        return ModRecipeBookCategory.PLASMA_SMELTING.get();
     }
 
     @Override
