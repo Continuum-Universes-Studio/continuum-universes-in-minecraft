@@ -1,5 +1,6 @@
 package net.continuumuniverses.recipes;
 
+import net.continuumuniverses.world.dimensions.uvla.UvlaLunarPhaseHelper;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -20,7 +21,19 @@ public class LunarRecipe implements Recipe<CraftingInput> {
 
     @Override
     public boolean matches(CraftingInput input, Level level) {
-        return pattern.matches(input);
+        if (level == null) {
+            return false;
+        }
+        if (!pattern.matches(input)) {
+            return false;
+        }
+        if (isUvla(level)) {
+            return UvlaLunarPhaseHelper.isKairaFull(level);
+        }
+        if (level.dimension().equals(Level.OVERWORLD)) {
+            return level.getMoonPhase() == 0;
+        }
+        return false;
     }
 
 
@@ -62,6 +75,11 @@ public class LunarRecipe implements Recipe<CraftingInput> {
 
     public ItemStack result() {
         return result;
+    }
+
+    private static boolean isUvla(Level level) {
+        return level.dimension().location().getNamespace().equals("continuumuniverses")
+                && level.dimension().location().getPath().equals("uvla");
     }
 
 }
